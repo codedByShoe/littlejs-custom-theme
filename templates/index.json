@@ -30,53 +30,53 @@
         "girls": {
           "type": "link",
           "settings": {
-            "label": "Girls",
-            "link": "/collections/girls"
+            "label": "New arrivals",
+            "link": "shopify://collections/new-arrivals"
+          }
+        },
+        "seasonal": {
+          "type": "link",
+          "settings": {
+            "label": "Adults",
+            "link": "shopify://collections/mom-rts"
           }
         },
         "boys": {
           "type": "link",
           "settings": {
             "label": "Boys",
-            "link": "/collections/boys"
+            "link": "shopify://collections/ready-to-ship-boys"
           }
         },
         "baby": {
           "type": "link",
           "settings": {
-            "label": "Baby",
-            "link": "/collections/baby"
-          }
-        },
-        "swim": {
-          "type": "link",
-          "settings": {
-            "label": "Swim",
-            "link": "/collections/swim"
-          }
-        },
-        "seasonal": {
-          "type": "link",
-          "settings": {
-            "label": "Seasonal",
-            "link": "/collections/seasonal"
+            "label": "Girls",
+            "link": "shopify://collections/ready-to-ship-girls"
           }
         },
         "accessories": {
           "type": "link",
           "settings": {
             "label": "Accessories",
-            "link": "/collections/accessories"
+            "link": "shopify://collections/accesories"
+          }
+        },
+        "swim": {
+          "type": "link",
+          "settings": {
+            "label": "clearance",
+            "link": "shopify://collections/clearance"
           }
         }
       },
       "block_order": [
         "girls",
+        "seasonal",
         "boys",
         "baby",
-        "swim",
-        "seasonal",
-        "accessories"
+        "accessories",
+        "swim"
       ],
       "settings": {
         "accessibility_label": "Shop by category"
