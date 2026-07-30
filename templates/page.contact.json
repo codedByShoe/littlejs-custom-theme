@@ -23,7 +23,7 @@
     "contact": {
       "type": "contact-form",
       "settings": {
-        "form_type": "wholesale",
+        "form_type": "general",
         "eyebrow": "customer care",
         "heading": "Wholesale Inquiries",
         "text": "<p>Please fill out the form to apply for wholesale items. </p>",
