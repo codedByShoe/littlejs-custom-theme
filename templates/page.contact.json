@@ -1,9 +1,19 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "page",
       "settings": {
         "eyebrow": "Customer care",
+        "introduction": "",
         "content_width": "narrow",
         "header_alignment": "left",
         "content_style": "plain"
@@ -12,14 +22,17 @@
     "contact": {
       "type": "contact-form",
       "settings": {
-        "form_type": "general",
+        "form_type": "wholesale",
         "eyebrow": "Send us a note",
         "heading": "How can we help?",
         "text": "<p>Questions about an order, sizing, or an upcoming collection? We’d love to hear from you.</p>",
+        "email": "",
+        "phone": "",
+        "wholesale_note": "We are currently accepting wholesale applications from businesses with a physical retail location.",
         "button_label": "Send message",
         "success_heading": "Message received",
         "success_text": "Thanks for reaching out. We’ll be in touch soon.",
-        "background": "soft"
+        "background": "plain"
       }
     }
   },
