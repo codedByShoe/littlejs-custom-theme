@@ -1,0 +1,31 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "settings": {
+        "text": "Free shipping on orders over $100 — Shop ready to ship",
+        "background": "#292421",
+        "text_color": "#FBF8F3"
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "wordmark": "Little J’s",
+        "menu": "main-menu",
+        "logo_width": 160
+      }
+    },
+    "search": {
+      "type": "search-overlay",
+      "settings": {}
+    }
+  },
+  "order": [
+    "announcement",
+    "header",
+    "search"
+  ]
+}

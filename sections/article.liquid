@@ -1,0 +1,110 @@
+<article class="article-page section-spacing">
+  <header>
+    <a class="eyebrow" href="{{ blog.url }}">{{ blog.title | escape }}</a>
+    <h1>{{ article.title | escape }}</h1>
+    {% assign date = article.published_at | time_tag: format: 'date' %}
+    <p>{{ 'blog.article_metadata_html' | t: date: date, author: article.author }}</p>
+  </header>
+
+  {% if article.image %}
+    <div class="article-page__image">
+      {{ article.image | image_url: width: 2000 | image_tag:
+        widths: '750, 1000, 1400, 1800, 2000',
+        sizes: '(min-width: 900px) 75vw, 100vw',
+        loading: 'eager',
+        alt: article.image.alt
+      }}
+    </div>
+  {% endif %}
+
+  <div class="article-page__body rte">{{ article.content }}</div>
+
+  {% if blog.comments_enabled? %}
+    <section class="article-comments" id="comments">
+      <h2>{{ 'blog.article_comments' | t }}</h2>
+      {% paginate article.comments by 10 %}
+        {% for comment in article.comments %}
+          <article>
+            <strong>{{ comment.author | escape }}</strong>
+            <p>{{ comment.created_at | time_tag: format: 'date' }}</p>
+            <div>{{ comment.content }}</div>
+          </article>
+        {% endfor %}
+        {% render 'pagination', paginate: paginate, anchor: '#comments' %}
+      {% endpaginate %}
+
+      {% form 'new_comment', article %}
+        <h2>{{ 'blog.comment_form_title' | t }}</h2>
+        {{ form.errors | default_errors }}
+        <label for="CommentAuthor">{{ 'blog.comment_form_name' | t }}</label>
+        <input id="CommentAuthor" type="text" name="comment[author]" value="{{ form.author }}" required>
+        <label for="CommentEmail">{{ 'blog.comment_form_email' | t }}</label>
+        <input id="CommentEmail" type="email" name="comment[email]" value="{{ form.email }}" required>
+        <label for="CommentBody">{{ 'blog.comment_form_body' | t }}</label>
+        <textarea id="CommentBody" name="comment[body]" required>{{ form.body }}</textarea>
+        <button class="button" type="submit">{{ 'blog.comment_form_submit' | t }}</button>
+      {% endform %}
+    </section>
+  {% endif %}
+</article>
+
+{% stylesheet %}
+  .article-page > header,
+  .article-page__body,
+  .article-comments {
+    width: min(100%, 52rem);
+    margin-inline: auto;
+  }
+
+  .article-page > header .eyebrow {
+    text-decoration: none;
+  }
+
+  .article-page h1 {
+    margin-top: 0.8rem;
+  }
+
+  .article-page > header > p {
+    margin-top: 1.25rem;
+    color: var(--color-muted);
+  }
+
+  .article-page__image {
+    max-width: 75rem;
+    overflow: hidden;
+    margin: clamp(2.5rem, 6vw, 5rem) auto;
+    border-radius: var(--style-border-radius-media);
+  }
+
+  .article-page__image img {
+    width: 100%;
+  }
+
+  .article-page__body {
+    color: var(--color-muted);
+  }
+
+  .article-comments {
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .article-comments > article {
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .article-comments form {
+    display: grid;
+    gap: 0.65rem;
+    margin-top: 3rem;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Article",
+  "settings": []
+}
+{% endschema %}

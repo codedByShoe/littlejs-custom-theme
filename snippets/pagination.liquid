@@ -1,0 +1,167 @@
+{% doc %}
+  Renders pagination controls for a Shopify paginate object.
+
+  @param {object} paginate - The paginate object available inside a paginate tag.
+  @param {string} [anchor] - Optional fragment identifier appended to pagination URLs.
+
+  @example
+  {% render 'pagination', paginate: paginate %}
+{% enddoc %}
+
+{% if paginate.pages > 1 %}
+  {% assign pagination_anchor = anchor | default: '' %}
+
+  <nav class="pagination" aria-label="Pagination">
+    <p class="pagination__summary">
+      Page {{ paginate.current_page }} of {{ paginate.pages }}
+    </p>
+
+    <ul class="pagination__list" role="list">
+      {% if paginate.previous %}
+        <li class="pagination__direction">
+          <a
+            class="pagination__control pagination__control--previous"
+            href="{{ paginate.previous.url }}{{ pagination_anchor }}"
+            aria-label="Previous page"
+          >
+            <span aria-hidden="true">←</span>
+            <span class="pagination__direction-label">Previous</span>
+          </a>
+        </li>
+      {% endif %}
+
+      {% for part in paginate.parts %}
+        <li>
+          {% if part.is_link %}
+            <a
+              class="pagination__control"
+              href="{{ part.url }}{{ pagination_anchor }}"
+              aria-label="Page {{ part.title }}"
+            >
+              {{ part.title }}
+            </a>
+          {% else %}
+            {% if part.title == paginate.current_page %}
+              <span class="pagination__control pagination__control--current" aria-current="page">
+                <span class="visually-hidden">Current page</span>
+                {{ part.title }}
+              </span>
+            {% else %}
+              <span class="pagination__ellipsis" aria-hidden="true">{{ part.title }}</span>
+            {% endif %}
+          {% endif %}
+        </li>
+      {% endfor %}
+
+      {% if paginate.next %}
+        <li class="pagination__direction">
+          <a
+            class="pagination__control pagination__control--next"
+            href="{{ paginate.next.url }}{{ pagination_anchor }}"
+            aria-label="Next page"
+          >
+            <span class="pagination__direction-label">Next</span>
+            <span aria-hidden="true">→</span>
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endif %}
+
+{% stylesheet %}
+  .pagination {
+    grid-column: 1 / -1;
+    display: grid;
+    justify-items: center;
+    gap: 1rem;
+    margin-top: clamp(3rem, 7vw, 5rem);
+    padding-top: clamp(1.5rem, 4vw, 2.5rem);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .pagination__summary {
+    color: var(--color-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .pagination__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pagination__control {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    color: var(--color-foreground);
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--style-border-radius-inputs);
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    transition:
+      color 160ms var(--motion-ease),
+      background-color 160ms var(--motion-ease),
+      border-color 160ms var(--motion-ease),
+      transform 160ms var(--motion-ease);
+  }
+
+  a.pagination__control:hover {
+    background: var(--color-soft-cream);
+    border-color: var(--color-foreground);
+    transform: translateY(-1px);
+  }
+
+  .pagination__control--current {
+    color: var(--color-background);
+    background: var(--color-foreground);
+    border-color: var(--color-foreground);
+  }
+
+  .pagination__control--previous,
+  .pagination__control--next {
+    padding-inline: 1rem;
+  }
+
+  .pagination__ellipsis {
+    min-width: 2rem;
+    min-height: 2.75rem;
+    display: grid;
+    place-items: center;
+    color: var(--color-muted);
+  }
+
+  @media (max-width: 520px) {
+    .pagination__direction-label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .pagination__control--previous,
+    .pagination__control--next {
+      padding-inline: 0.75rem;
+    }
+  }
+{% endstylesheet %}

@@ -1,0 +1,30 @@
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "settings": {
+        "eyebrow": "Customer care",
+        "content_width": "narrow",
+        "header_alignment": "left",
+        "content_style": "plain"
+      }
+    },
+    "contact": {
+      "type": "contact-form",
+      "settings": {
+        "form_type": "general",
+        "eyebrow": "Send us a note",
+        "heading": "How can we help?",
+        "text": "<p>Questions about an order, sizing, or an upcoming collection? We’d love to hear from you.</p>",
+        "button_label": "Send message",
+        "success_heading": "Message received",
+        "success_text": "Thanks for reaching out. We’ll be in touch soon.",
+        "background": "soft"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "contact"
+  ]
+}

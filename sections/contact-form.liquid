@@ -1,0 +1,449 @@
+<section class="contact-section contact-section--{{ section.settings.background }} section-spacing">
+  <div class="contact-section__inner">
+    <div class="contact-section__aside">
+      {% if section.settings.eyebrow != blank %}
+        <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {% endif %}
+      <h2>{{ section.settings.heading | escape }}</h2>
+      {% if section.settings.text != blank %}
+        <div class="contact-section__text rte">{{ section.settings.text }}</div>
+      {% endif %}
+
+      {% if section.settings.email != blank or section.settings.phone != blank %}
+        <div class="contact-section__details">
+          {% if section.settings.email != blank %}
+            <div>
+              <span>Email</span>
+              <a href="mailto:{{ section.settings.email | escape }}">{{ section.settings.email | escape }}</a>
+            </div>
+          {% endif %}
+          {% if section.settings.phone != blank %}
+            <div>
+              <span>Phone</span>
+              <a href="tel:{{ section.settings.phone | replace: ' ', '' | escape }}">
+                {{ section.settings.phone | escape }}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="contact-section__form">
+      {% form 'contact', id: 'ContactForm' %}
+        <input type="hidden" name="contact[Page]" value="{{ page.title | escape }}">
+        {% if section.settings.form_type == 'wholesale' %}
+          <input type="hidden" name="contact[Inquiry type]" value="Wholesale">
+        {% endif %}
+
+        {% if form.posted_successfully? %}
+          <div class="contact-section__success" tabindex="-1" role="status">
+            <h3>{{ section.settings.success_heading | escape }}</h3>
+            <p>{{ section.settings.success_text | escape }}</p>
+          </div>
+        {% else %}
+          {% if form.errors %}
+            <div class="contact-section__errors" role="alert">
+              <p>Please check the highlighted fields and try again.</p>
+              {{ form.errors | default_errors }}
+            </div>
+          {% endif %}
+
+          {% if section.settings.form_type == 'wholesale' %}
+            <div class="contact-section__notice" role="note">
+              <strong>Brick-and-mortar retailers only</strong>
+              <p>{{ section.settings.wholesale_note | escape }}</p>
+            </div>
+          {% endif %}
+
+          <div class="contact-section__fields">
+            <div class="contact-section__field">
+              <label for="ContactName-{{ section.id }}">
+                {% if section.settings.form_type == 'wholesale' %}Full name{% else %}Name{% endif %}
+              </label>
+              <input
+                id="ContactName-{{ section.id }}"
+                type="text"
+                name="contact[name]"
+                value="{{ form.name }}"
+                autocomplete="name"
+                required
+              >
+            </div>
+
+            <div class="contact-section__field">
+              <label for="ContactEmail-{{ section.id }}">Email</label>
+              <input
+                id="ContactEmail-{{ section.id }}"
+                type="email"
+                name="contact[email]"
+                value="{{ form.email }}"
+                autocomplete="email"
+                autocapitalize="off"
+                spellcheck="false"
+                required
+                {% if form.errors contains 'email' %}aria-invalid="true" aria-describedby="ContactEmailError-{{ section.id }}"{% endif %}
+              >
+              {% if form.errors contains 'email' %}
+                <small id="ContactEmailError-{{ section.id }}">{{ form.errors.messages.email }}</small>
+              {% endif %}
+            </div>
+
+            {% if section.settings.form_type == 'wholesale' %}
+              <div class="contact-section__field">
+                <label for="ContactCompany-{{ section.id }}">Business name</label>
+                <input
+                  id="ContactCompany-{{ section.id }}"
+                  type="text"
+                  name="contact[Business name]"
+                  autocomplete="organization"
+                  required
+                >
+              </div>
+
+              <div class="contact-section__field">
+                <label for="ContactWholesalePhone-{{ section.id }}">Phone</label>
+                <input
+                  id="ContactWholesalePhone-{{ section.id }}"
+                  type="tel"
+                  name="contact[phone]"
+                  autocomplete="tel"
+                  required
+                >
+              </div>
+
+              <div class="contact-section__field">
+                <label for="ContactWebsite-{{ section.id }}">Website <span>(optional)</span></label>
+                <input
+                  id="ContactWebsite-{{ section.id }}"
+                  type="url"
+                  name="contact[Website]"
+                  placeholder="https://"
+                  inputmode="url"
+                >
+              </div>
+
+              <div class="contact-section__field">
+                <label for="ContactFacebook-{{ section.id }}">Facebook <span>(optional)</span></label>
+                <input
+                  id="ContactFacebook-{{ section.id }}"
+                  type="url"
+                  name="contact[Facebook]"
+                  placeholder="https://facebook.com/"
+                  inputmode="url"
+                >
+              </div>
+
+              <div class="contact-section__field">
+                <label for="ContactInstagram-{{ section.id }}">Instagram <span>(optional)</span></label>
+                <input
+                  id="ContactInstagram-{{ section.id }}"
+                  type="text"
+                  name="contact[Instagram]"
+                  placeholder="@yourshop"
+                  autocapitalize="off"
+                >
+              </div>
+
+              <div class="contact-section__field contact-section__field--full">
+                <label for="ContactStoreAddress-{{ section.id }}">Physical store address</label>
+                <textarea
+                  id="ContactStoreAddress-{{ section.id }}"
+                  name="contact[Physical store address]"
+                  rows="4"
+                  autocomplete="street-address"
+                  required
+                ></textarea>
+              </div>
+
+              <div class="contact-section__field">
+                <label for="ContactResaleLicense-{{ section.id }}">Resale license or tax ID</label>
+                <input
+                  id="ContactResaleLicense-{{ section.id }}"
+                  type="text"
+                  name="contact[Resale license or tax ID]"
+                  required
+                >
+              </div>
+
+              <div class="contact-section__field">
+                <label for="ContactLicenseState-{{ section.id }}">Issuing state</label>
+                <input
+                  id="ContactLicenseState-{{ section.id }}"
+                  type="text"
+                  name="contact[License issuing state]"
+                  autocomplete="address-level1"
+                  required
+                >
+              </div>
+            {% else %}
+              <div class="contact-section__field">
+                <label for="ContactPhone-{{ section.id }}">Phone <span>(optional)</span></label>
+                <input
+                  id="ContactPhone-{{ section.id }}"
+                  type="tel"
+                  name="contact[phone]"
+                  autocomplete="tel"
+                >
+              </div>
+
+              <div class="contact-section__field">
+                <label for="ContactOrder-{{ section.id }}">Order number <span>(optional)</span></label>
+                <input
+                  id="ContactOrder-{{ section.id }}"
+                  type="text"
+                  name="contact[Order number]"
+                >
+              </div>
+            {% endif %}
+
+            <div class="contact-section__field contact-section__field--full">
+              <label for="ContactMessage-{{ section.id }}">
+                {% if section.settings.form_type == 'wholesale' %}Tell us about your business{% else %}Message{% endif %}
+              </label>
+              <textarea
+                id="ContactMessage-{{ section.id }}"
+                name="contact[body]"
+                rows="7"
+                required
+              >{{- form.body -}}</textarea>
+            </div>
+          </div>
+
+          <button class="button" type="submit">{{ section.settings.button_label | escape }}</button>
+        {% endif %}
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .contact-section--soft {
+    background: var(--color-soft-cream);
+  }
+
+  .contact-section__inner {
+    display: grid;
+    grid-template-columns: minmax(14rem, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(2.5rem, 8vw, 7rem);
+  }
+
+  .contact-section__aside h2 {
+    max-width: 12ch;
+    margin-top: 0.5rem;
+  }
+
+  .contact-section__text {
+    margin-top: 1.25rem;
+    color: var(--color-muted);
+  }
+
+  .contact-section__details {
+    display: grid;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .contact-section__details > div {
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .contact-section__details span {
+    color: var(--color-muted);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .contact-section__details a {
+    color: inherit;
+    font-weight: 600;
+  }
+
+  .contact-section__form {
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--style-border-radius-media);
+  }
+
+  .contact-section__fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.1rem;
+  }
+
+  .contact-section__notice {
+    margin-bottom: 1.25rem;
+    padding: 1rem 1.1rem;
+    color: var(--color-foreground);
+    background: var(--color-soft-cream);
+    border-left: 3px solid var(--color-rose-dark);
+    border-radius: 0 var(--style-border-radius-inputs) var(--style-border-radius-inputs) 0;
+  }
+
+  .contact-section__notice strong {
+    display: block;
+    margin-bottom: 0.2rem;
+    font-size: 0.9rem;
+  }
+
+  .contact-section__notice p {
+    color: var(--color-muted);
+    font-size: 0.85rem;
+  }
+
+  .contact-section__field {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .contact-section__field--full {
+    grid-column: 1 / -1;
+  }
+
+  .contact-section__field label {
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .contact-section__field label span {
+    color: var(--color-muted);
+    font-weight: 500;
+  }
+
+  .contact-section__field textarea {
+    resize: vertical;
+  }
+
+  .contact-section__field [aria-invalid='true'] {
+    border-color: var(--color-sale);
+  }
+
+  .contact-section__field small,
+  .contact-section__errors {
+    color: var(--color-sale);
+  }
+
+  .contact-section__errors,
+  .contact-section__success {
+    margin-bottom: 1.25rem;
+    padding: 1rem;
+    background: var(--color-soft-cream);
+    border-radius: var(--style-border-radius-inputs);
+  }
+
+  .contact-section__errors ul {
+    margin-top: 0.5rem;
+    padding-left: 1.25rem;
+  }
+
+  .contact-section__success h3 {
+    margin-bottom: 0.35rem;
+  }
+
+  .contact-section__form .button {
+    margin-top: 1.25rem;
+  }
+
+  @media (max-width: 760px) {
+    .contact-section__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-section__fields {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-section__field--full {
+      grid-column: auto;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Contact form",
+  "settings": [
+    {
+      "type": "select",
+      "id": "form_type",
+      "label": "Form type",
+      "options": [
+        { "value": "general", "label": "General contact" },
+        { "value": "wholesale", "label": "Wholesale inquiry" }
+      ],
+      "default": "general"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Get in touch"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "How can we help?"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Send us a note and we’ll get back to you as soon as we can.</p>"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Displayed email address"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Displayed phone number"
+    },
+    {
+      "type": "textarea",
+      "id": "wholesale_note",
+      "label": "Wholesale eligibility note",
+      "default": "We are currently accepting wholesale applications from businesses with a physical retail location."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Send message"
+    },
+    {
+      "type": "text",
+      "id": "success_heading",
+      "label": "Success heading",
+      "default": "Message received"
+    },
+    {
+      "type": "text",
+      "id": "success_text",
+      "label": "Success message",
+      "default": "Thanks for reaching out. We’ll be in touch soon."
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Background",
+      "options": [
+        { "value": "plain", "label": "Plain" },
+        { "value": "soft", "label": "Soft cream" }
+      ],
+      "default": "soft"
+    }
+  ],
+  "presets": [
+    { "name": "Contact form" }
+  ]
+}
+{% endschema %}

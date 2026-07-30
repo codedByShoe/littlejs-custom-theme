@@ -1,0 +1,64 @@
+<nav class="category-strip" aria-label="{{ section.settings.accessibility_label | escape }}">
+  {% for block in section.blocks %}
+    <a href="{{ block.settings.link }}" {{ block.shopify_attributes }}>{{ block.settings.label | escape }}</a>
+  {% endfor %}
+</nav>
+
+{% stylesheet %}
+  .category-strip {
+    display: flex;
+    gap: 0.25rem;
+    overflow-x: auto;
+    padding-block: 0.75rem;
+    border-bottom: 1px solid var(--color-line);
+    scrollbar-width: thin;
+  }
+
+  .category-strip a {
+    flex: none;
+    padding: 1rem clamp(1rem, 2vw, 1.5rem);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .category-strip a:hover {
+    color: var(--color-rose-dark);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Category strip",
+  "settings": [
+    { "type": "text", "id": "accessibility_label", "label": "Accessibility label", "default": "Shop by category" }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Category",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Girls" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Category strip",
+      "blocks": [
+        { "type": "link", "settings": { "label": "Girls" } },
+        { "type": "link", "settings": { "label": "Boys" } },
+        { "type": "link", "settings": { "label": "Baby" } },
+        { "type": "link", "settings": { "label": "Swim" } },
+        { "type": "link", "settings": { "label": "Seasonal" } },
+        { "type": "link", "settings": { "label": "Accessories" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

@@ -1,0 +1,31 @@
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "settings": {
+        "eyebrow": "Work with us",
+        "content_width": "narrow",
+        "header_alignment": "left",
+        "content_style": "plain"
+      }
+    },
+    "contact": {
+      "type": "contact-form",
+      "settings": {
+        "form_type": "wholesale",
+        "eyebrow": "Wholesale application",
+        "heading": "Tell us about your shop",
+        "text": "<p>Share a little about your business and the products your customers love. Qualified applicants will receive next steps by email.</p>",
+        "wholesale_note": "Little J’s is currently accepting wholesale applications from brick-and-mortar retail businesses only.",
+        "button_label": "Submit inquiry",
+        "success_heading": "Inquiry received",
+        "success_text": "Thank you for your interest in Little J’s. We’ll review your information and follow up soon.",
+        "background": "soft"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "contact"
+  ]
+}

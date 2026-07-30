@@ -1,0 +1,90 @@
+<section class="testimonials section-spacing">
+  <div class="testimonials__heading">
+    <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    <h2>{{ section.settings.heading | escape }}</h2>
+  </div>
+  <div class="testimonials__grid">
+    {% for block in section.blocks %}
+      <figure {{ block.shopify_attributes }}>
+        <div class="testimonials__stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>“{{ block.settings.quote | escape }}”</blockquote>
+        <figcaption>— {{ block.settings.name | escape }}</figcaption>
+      </figure>
+    {% endfor %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .testimonials__heading {
+    max-width: 44rem;
+    margin-bottom: 3rem;
+  }
+
+  .testimonials__heading h2 {
+    margin-top: 0.6rem;
+  }
+
+  .testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.5rem, 4vw, 4rem);
+  }
+
+  .testimonials__stars {
+    color: var(--color-rose-dark);
+    letter-spacing: 0.12em;
+  }
+
+  .testimonials blockquote {
+    margin-top: 1rem;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    line-height: 1.55;
+  }
+
+  .testimonials figcaption {
+    margin-top: 1rem;
+    color: var(--color-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 700px) {
+    .testimonials__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Kind words" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Loved by Little J’s Families" }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "The cutest outfits, the best quality and so affordable!" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Customer name" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        { "type": "testimonial", "settings": { "name": "MaKenzie Mathis", "quote": "I’d give 100 stars if I could! The cutest outfits, the best quality and so affordable!" } },
+        { "type": "testimonial", "settings": { "name": "Tiffany Long", "quote": "We absolutely love Little J’s Smocks!! We have so many matching brother sister outfits from here!! Highly recommend them to everyone wanting sibling sets!!" } },
+        { "type": "testimonial", "settings": { "name": "Ashley Yawn", "quote": "This is literally the best company! Everything is SO affordable and great quality. Definitely a 10/10!" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

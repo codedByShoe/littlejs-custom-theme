@@ -1,0 +1,44 @@
+{% if section.settings.text != blank %}
+  <aside class="announcement" style="--announcement-bg: {{ section.settings.background }}; --announcement-color: {{ section.settings.text_color }};">
+    {% if section.settings.link != blank %}
+      <a href="{{ section.settings.link }}">{{ section.settings.text | escape }}</a>
+    {% else %}
+      <p>{{ section.settings.text | escape }}</p>
+    {% endif %}
+  </aside>
+{% endif %}
+
+{% stylesheet %}
+  .announcement {
+    min-height: 2.5rem;
+    display: grid;
+    place-items: center;
+    padding: 0.5rem var(--page-margin);
+    color: var(--announcement-color);
+    background: var(--announcement-bg);
+    text-align: center;
+  }
+
+  .announcement p,
+  .announcement a {
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Text", "default": "Free shipping on orders over $100 — Shop ready to ship" },
+    { "type": "url", "id": "link", "label": "Link" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#292421" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#FBF8F3" }
+  ],
+  "presets": [{ "name": "Announcement bar" }]
+}
+{% endschema %}
+

@@ -1,0 +1,36 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "shop_menu": {
+          "type": "menu",
+          "settings": { "heading": "Shop", "menu": "main-menu" }
+        },
+        "help_menu": {
+          "type": "menu",
+          "settings": { "heading": "Help", "menu": "footer" }
+        },
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {
+            "heading": "First look at new arrivals",
+            "text": "Occasional notes about fresh drops, preorders, and seasonal favorites.",
+            "button_label": "Join the list"
+          }
+        }
+      },
+      "block_order": ["shop_menu", "help_menu", "newsletter"],
+      "settings": {
+        "logo_width": 160,
+        "wordmark": "Little J’s",
+        "tagline": "Beautiful smocked clothing for every little occasion.",
+        "show_social": false,
+        "show_payment_icons": true
+      }
+    }
+  },
+  "order": ["footer"]
+}

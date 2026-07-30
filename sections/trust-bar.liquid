@@ -1,0 +1,81 @@
+<aside class="trust-bar">
+  {% for block in section.blocks %}
+    <div class="trust-bar__item" {{ block.shopify_attributes }}>
+      <span aria-hidden="true">✓</span>
+      <p>{{ block.settings.text | escape }}</p>
+    </div>
+  {% endfor %}
+</aside>
+
+{% stylesheet %}
+  .trust-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 2rem;
+    background: color-mix(in srgb, var(--color-sage) 18%, var(--color-background));
+    border: 1px solid color-mix(in srgb, var(--color-sage) 45%, var(--color-line));
+    border-radius: var(--style-border-radius-media);
+  }
+
+  .trust-bar__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .trust-bar__item span {
+    width: 1.75rem;
+    height: 1.75rem;
+    display: grid;
+    place-items: center;
+    border: 1px solid currentcolor;
+    border-radius: 999px;
+  }
+
+  .trust-bar__item p {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 700px) {
+    .trust-bar {
+      grid-template-columns: 1fr;
+    }
+
+    .trust-bar__item {
+      justify-content: flex-start;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Trust bar",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Trust statement",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Satisfaction guaranteed" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Trust bar",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Satisfaction guaranteed" } },
+        { "type": "item", "settings": { "text": "Secure checkout" } },
+        { "type": "item", "settings": { "text": "Carefully packed" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

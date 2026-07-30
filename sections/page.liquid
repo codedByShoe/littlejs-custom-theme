@@ -1,0 +1,192 @@
+<article class="content-page content-page--{{ section.settings.content_width }} section-spacing">
+  <header class="content-page__header content-page__header--{{ section.settings.header_alignment }}">
+    {% if section.settings.eyebrow != blank %}
+      <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {% endif %}
+    <h1>{{ page.title | escape }}</h1>
+    {% if section.settings.introduction != blank %}
+      <div class="content-page__introduction rte">{{ section.settings.introduction }}</div>
+    {% endif %}
+  </header>
+
+  {% if page.content != blank %}
+    <div class="content-page__body content-page__body--{{ section.settings.content_style }} rte">
+      {{ page.content }}
+    </div>
+  {% elsif request.design_mode %}
+    <div class="content-page__empty">
+      <p>Add this page’s main content in <strong>Online Store → Pages</strong>.</p>
+    </div>
+  {% endif %}
+</article>
+
+{% stylesheet %}
+  .content-page {
+    width: min(100%, var(--content-page-width));
+    margin-inline: auto;
+  }
+
+  .content-page--narrow {
+    --content-page-width: 48rem;
+  }
+
+  .content-page--standard {
+    --content-page-width: 64rem;
+  }
+
+  .content-page__header {
+    max-width: 52rem;
+  }
+
+  .content-page__header--center {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .content-page__header h1 {
+    margin-top: 0.6rem;
+    font-size: clamp(2.75rem, 7vw, 5.75rem);
+  }
+
+  .content-page__introduction {
+    margin-top: 1.25rem;
+    color: var(--color-muted);
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+  }
+
+  .content-page__header--center .content-page__introduction {
+    margin-inline: auto;
+  }
+
+  .content-page__body {
+    margin-top: clamp(2.5rem, 6vw, 5rem);
+    color: var(--color-muted);
+  }
+
+  .content-page__body--card {
+    max-width: none;
+    padding: clamp(1.5rem, 4vw, 3.5rem);
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--style-border-radius-media);
+  }
+
+  .content-page__body h2,
+  .content-page__body h3,
+  .content-page__body h4 {
+    margin-top: 1.75em;
+    color: var(--color-foreground);
+  }
+
+  .content-page__body h2 {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+  }
+
+  .content-page__body h3 {
+    font-size: clamp(1.25rem, 3vw, 1.65rem);
+  }
+
+  .content-page__body a {
+    color: var(--color-foreground);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2rem;
+  }
+
+  .content-page__body ul,
+  .content-page__body ol {
+    display: grid;
+    gap: 0.45rem;
+    padding-left: 1.35rem;
+  }
+
+  .content-page__body blockquote {
+    padding: 1.25rem 1.5rem;
+    color: var(--color-foreground);
+    background: var(--color-soft-cream);
+    border-left: 3px solid var(--color-rose-dark);
+    border-radius: 0 var(--style-border-radius-inputs) var(--style-border-radius-inputs) 0;
+  }
+
+  .content-page__body img {
+    width: 100%;
+    margin-block: 2rem;
+    border-radius: var(--style-border-radius-media);
+  }
+
+  .content-page__body iframe {
+    width: 100%;
+    max-width: 100%;
+    border: 0;
+  }
+
+  .content-page__body table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .content-page__body th,
+  .content-page__body td {
+    padding: 0.75rem;
+    border: 1px solid var(--color-line);
+    text-align: left;
+  }
+
+  .content-page__empty {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    color: var(--color-muted);
+    background: var(--color-soft-cream);
+    border: 1px dashed var(--color-line);
+    border-radius: var(--style-border-radius-inputs);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Page content",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Little J’s"
+    },
+    {
+      "type": "richtext",
+      "id": "introduction",
+      "label": "Introduction",
+      "info": "Optional introductory text shown below the page title."
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "options": [
+        { "value": "narrow", "label": "Narrow" },
+        { "value": "standard", "label": "Standard" }
+      ],
+      "default": "narrow"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "content_style",
+      "label": "Content style",
+      "options": [
+        { "value": "plain", "label": "Plain" },
+        { "value": "card", "label": "Card" }
+      ],
+      "default": "plain"
+    }
+  ]
+}
+{% endschema %}

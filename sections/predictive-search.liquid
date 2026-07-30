@@ -1,0 +1,91 @@
+{% # theme-check-disable ValidScopedCSSClass %}
+{% if predictive_search.performed %}
+  {% assign result_count = predictive_search.resources.products.size
+    | plus: predictive_search.resources.collections.size
+    | plus: predictive_search.resources.pages.size
+    | plus: predictive_search.resources.articles.size
+  %}
+
+  <div class="predictive-search" id="predictive-search-results">
+    {% if result_count == 0 %}
+      <div class="predictive-search__empty">
+        <p>No matches found for “{{ predictive_search.terms | escape }}”.</p>
+        <a href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}">Try the full search</a>
+      </div>
+    {% else %}
+      {% if predictive_search.resources.products.size > 0 %}
+        <section class="predictive-search__group" aria-labelledby="PredictiveProducts">
+          <h3 class="predictive-search__heading" id="PredictiveProducts">Products</h3>
+          <ul class="predictive-search__products" role="list">
+            {% for product in predictive_search.resources.products limit: 6 %}
+              <li class="predictive-search__product">
+                <a href="{{ product.url }}">
+                  {% if product.featured_image %}
+                    {{ product.featured_image
+                      | image_url: width: 180
+                      | image_tag:
+                        widths: '90, 135, 180',
+                        sizes: '4.5rem',
+                        loading: 'lazy',
+                        alt: product.featured_image.alt
+                    }}
+                  {% else %}
+                    <span class="predictive-search__image-placeholder"></span>
+                  {% endif %}
+                  <div>
+                    <h3>{{ product.title | escape }}</h3>
+                    <p>{{ product.price | money }}</p>
+                  </div>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endif %}
+
+      {% if predictive_search.resources.collections.size > 0 %}
+        <section class="predictive-search__group" aria-labelledby="PredictiveCollections">
+          <h3 class="predictive-search__heading" id="PredictiveCollections">Collections</h3>
+          <ul class="predictive-search__links" role="list">
+            {% for collection in predictive_search.resources.collections %}
+              <li><a href="{{ collection.url }}">{{ collection.title | escape }}</a></li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endif %}
+
+      {% assign editorial_count = predictive_search.resources.pages.size
+        | plus: predictive_search.resources.articles.size
+      %}
+      {% if editorial_count > 0 %}
+        <section class="predictive-search__group" aria-labelledby="PredictiveEditorial">
+          <h3 class="predictive-search__heading" id="PredictiveEditorial">More to explore</h3>
+          <ul class="predictive-search__links" role="list">
+            {% for page in predictive_search.resources.pages %}
+              <li><a href="{{ page.url }}">{{ page.title | escape }}</a></li>
+            {% endfor %}
+            {% for article in predictive_search.resources.articles %}
+              <li><a href="{{ article.url }}">{{ article.title | escape }}</a></li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endif %}
+
+      <a
+        class="predictive-search__view-all"
+        href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&options%5Bprefix%5D=last"
+      >
+        <span>View all results for “{{ predictive_search.terms | escape }}”</span>
+        <span aria-hidden="true">→</span>
+      </a>
+    {% endif %}
+  </div>
+{% endif %}
+{% # theme-check-enable ValidScopedCSSClass %}
+
+{% schema %}
+{
+  "name": "Predictive search",
+  "settings": []
+}
+{% endschema %}

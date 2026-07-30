@@ -1,0 +1,81 @@
+<section class="fulfillment-split full-width">
+  <div class="fulfillment-split__panel fulfillment-split__panel--blue">
+    <p class="eyebrow">{{ section.settings.first_eyebrow | escape }}</p>
+    <h2>{{ section.settings.first_heading | escape }}</h2>
+    <p>{{ section.settings.first_text | escape }}</p>
+    <a class="button" href="{{ section.settings.first_link }}">{{ section.settings.first_label | escape }}</a>
+  </div>
+  <div class="fulfillment-split__panel fulfillment-split__panel--cream">
+    <p class="eyebrow">{{ section.settings.second_eyebrow | escape }}</p>
+    <h2>{{ section.settings.second_heading | escape }}</h2>
+    <p>{{ section.settings.second_text | escape }}</p>
+    <a class="button button--secondary" href="{{ section.settings.second_link }}">{{ section.settings.second_label | escape }}</a>
+  </div>
+</section>
+
+{% stylesheet %}
+  .fulfillment-split {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fulfillment-split__panel {
+    min-height: 30rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: clamp(3rem, 8vw, 8rem);
+  }
+
+  .fulfillment-split__panel--blue {
+    background: var(--color-blue);
+  }
+
+  .fulfillment-split__panel--cream {
+    background: var(--color-soft-cream);
+  }
+
+  .fulfillment-split h2 {
+    max-width: 9ch;
+    margin-top: 0.6rem;
+  }
+
+  .fulfillment-split p:not(.eyebrow) {
+    max-width: 42ch;
+    margin-top: 1.5rem;
+  }
+
+  .fulfillment-split .button {
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 760px) {
+    .fulfillment-split {
+      grid-template-columns: 1fr;
+    }
+
+    .fulfillment-split__panel {
+      min-height: 24rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Fulfillment split",
+  "settings": [
+    { "type": "text", "id": "first_eyebrow", "label": "First eyebrow", "default": "Fast fulfillment" },
+    { "type": "text", "id": "first_heading", "label": "First heading", "default": "Ready to Ship" },
+    { "type": "textarea", "id": "first_text", "label": "First text", "default": "In-stock favorites are packed with care and sent from our boutique within 2–3 business days." },
+    { "type": "text", "id": "first_label", "label": "First button", "default": "Shop available now" },
+    { "type": "url", "id": "first_link", "label": "First link" },
+    { "type": "text", "id": "second_eyebrow", "label": "Second eyebrow", "default": "Plan ahead" },
+    { "type": "text", "id": "second_heading", "label": "Second heading", "default": "Current Preorders" },
+    { "type": "textarea", "id": "second_text", "label": "Second text", "default": "Reserve upcoming seasonal favorites and matching sets. Estimated ship dates are listed on every product page." },
+    { "type": "text", "id": "second_label", "label": "Second button", "default": "Discover preorders" },
+    { "type": "url", "id": "second_link", "label": "Second link" }
+  ],
+  "presets": [{ "name": "Fulfillment split" }]
+}
+{% endschema %}

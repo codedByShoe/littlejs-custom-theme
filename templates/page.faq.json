@@ -1,0 +1,53 @@
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "settings": {
+        "eyebrow": "Customer care",
+        "content_width": "narrow",
+        "header_alignment": "center",
+        "content_style": "plain"
+      }
+    },
+    "questions": {
+      "type": "faq",
+      "blocks": {
+        "question_1": {
+          "type": "question",
+          "settings": {
+            "question": "How quickly do ready-to-ship orders ship?",
+            "answer": "<p>Add your current ready-to-ship processing and delivery timeline here.</p>"
+          }
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {
+            "question": "How do preorders work?",
+            "answer": "<p>Explain preorder estimated arrival dates and where customers can find updates.</p>"
+          }
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {
+            "question": "Can I combine ready-to-ship and preorder items?",
+            "answer": "<p>Add your policy for orders containing products with different fulfillment timelines.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_1",
+        "question_2",
+        "question_3"
+      ],
+      "settings": {
+        "eyebrow": "Helpful answers",
+        "heading": "Frequently asked questions",
+        "text": "<p>Everything you need to know about shopping with Little J’s.</p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "questions"
+  ]
+}

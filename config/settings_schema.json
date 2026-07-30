@@ -1,0 +1,110 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Little J's",
+    "theme_version": "1.0.0",
+    "theme_author": "Little J's",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://support.shopify.com/"
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "type_primary_font",
+        "default": "work_sans_n4",
+        "label": "Primary font"
+      }
+    ]
+  },
+  {
+    "name": "Social sharing",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "social_sharing_image",
+        "label": "Default social sharing image",
+        "info": "Used when a page does not have its own featured image. A 1200 × 630 px image works best."
+      }
+    ]
+  },
+  {
+    "name": "Product placeholders",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "product_placeholder_logo",
+        "label": "Logo",
+        "info": "Shown when a product does not have an image. A transparent PNG or SVG works best."
+      },
+      {
+        "type": "text",
+        "id": "product_placeholder_message",
+        "label": "Message",
+        "default": "Image coming soon"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "select",
+        "id": "max_page_width",
+        "label": "Maximum page width",
+        "options": [
+          { "value": "90rem", "label": "Standard" },
+          { "value": "110rem", "label": "Wide" }
+        ],
+        "default": "90rem"
+      },
+      {
+        "type": "range",
+        "id": "min_page_margin",
+        "min": 16,
+        "max": 64,
+        "step": 4,
+        "unit": "px",
+        "label": "Maximum page gutter",
+        "default": 48
+      },
+      {
+        "type": "range",
+        "id": "input_corner_radius",
+        "min": 0,
+        "max": 16,
+        "step": 2,
+        "unit": "px",
+        "label": "Control corner radius",
+        "default": 8
+      },
+      {
+        "type": "range",
+        "id": "media_corner_radius",
+        "min": 0,
+        "max": 24,
+        "step": 2,
+        "unit": "px",
+        "label": "Media corner radius",
+        "default": 16
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      { "type": "color", "id": "background_color", "default": "#FBF8F3", "label": "Background" },
+      { "type": "color", "id": "surface_color", "default": "#FFFFFF", "label": "Surface" },
+      { "type": "color", "id": "soft_cream_color", "default": "#F2ECE4", "label": "Soft cream" },
+      { "type": "color", "id": "foreground_color", "default": "#292421", "label": "Text" },
+      { "type": "color", "id": "muted_color", "default": "#6F6761", "label": "Muted text" },
+      { "type": "color", "id": "line_color", "default": "#DED6CD", "label": "Borders" },
+      { "type": "color", "id": "rose_color", "default": "#D9A3A5", "label": "Dusty rose" },
+      { "type": "color", "id": "rose_dark_color", "default": "#A96469", "label": "Dusty rose dark" },
+      { "type": "color", "id": "blue_color", "default": "#AFC5D5", "label": "Dusty blue" },
+      { "type": "color", "id": "sage_color", "default": "#B9C4AD", "label": "Sage" },
+      { "type": "color", "id": "sale_color", "default": "#A33A32", "label": "Sale" }
+    ]
+  }
+]

@@ -1,0 +1,103 @@
+<section class="featured-products section-spacing">
+  <div class="featured-products__heading">
+    <div>
+      {% if section.settings.eyebrow != blank %}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+      <h2>{{ section.settings.heading | escape }}</h2>
+    </div>
+    {% if section.settings.collection != blank %}
+      <a href="{{ section.settings.collection.url }}">{{ section.settings.link_label | escape }}</a>
+    {% endif %}
+  </div>
+
+  <div class="featured-products__grid">
+    {% if section.settings.collection != blank %}
+      {% for product in section.settings.collection.products limit: section.settings.products_to_show %}
+        {% render 'product-card',
+          product: product,
+          show_badge: section.settings.show_badges,
+          image_sizes: '(min-width: 990px) 25vw, 50vw'
+        %}
+      {% else %}
+        <p>No products found in this collection.</p>
+      {% endfor %}
+    {% else %}
+      {% for index in (1..4) %}
+        <article class="featured-products__placeholder">
+          {{ 'product-' | append: index | placeholder_svg_tag }}
+          <p class="eyebrow">Ready to ship</p>
+          <h3>Choose a featured collection</h3>
+          <p>$48.00</p>
+        </article>
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .featured-products__heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 1.5rem;
+    margin-bottom: clamp(2rem, 5vw, 4rem);
+  }
+
+  .featured-products__heading .eyebrow {
+    margin-bottom: 0.5rem;
+  }
+
+  .featured-products__heading > a {
+    flex: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .featured-products__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1rem, 2.5vw, 2rem);
+  }
+
+  .featured-products__placeholder svg {
+    aspect-ratio: 4 / 5;
+    width: 100%;
+    background: var(--color-soft-cream);
+    border-radius: var(--style-border-radius-media);
+  }
+
+  .featured-products__placeholder .eyebrow {
+    margin-top: 1rem;
+  }
+
+  .featured-products__placeholder h3 {
+    margin-top: 0.25rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+
+  @media (max-width: 760px) {
+    .featured-products__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 2.5rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Featured products",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Latest drop" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Trending Now" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 2, "max": 8, "step": 1, "default": 4 },
+    { "type": "checkbox", "id": "show_badges", "label": "Show product status", "default": true },
+    { "type": "text", "id": "link_label", "label": "View all label", "default": "View all" }
+  ],
+  "presets": [{ "name": "Featured products" }]
+}
+{% endschema %}
+

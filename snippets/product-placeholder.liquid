@@ -1,0 +1,93 @@
+{% doc %}
+  Renders the branded fallback shown when a product has no media.
+
+  @param {string} [class] - Optional additional CSS class.
+
+  @example
+  {% render 'product-placeholder', class: 'product-card__placeholder' %}
+{% enddoc %}
+
+<div class="product-placeholder{% if class != blank %} {{ class }}{% endif %}" role="img" aria-label="{{ settings.product_placeholder_message | default: 'Image coming soon' | escape }}">
+  <span class="product-placeholder__mark" aria-hidden="true">
+    {% if settings.product_placeholder_logo %}
+      {{ settings.product_placeholder_logo
+        | image_url: width: 480
+        | image_tag:
+          widths: '160, 240, 320, 480',
+          sizes: '(min-width: 760px) 12rem, 8rem',
+          loading: 'lazy',
+          alt: ''
+      }}
+    {% else %}
+      <span class="product-placeholder__wordmark">{{ shop.name | escape }}</span>
+    {% endif %}
+  </span>
+
+  <span class="product-placeholder__ornament" aria-hidden="true">
+    <svg viewBox="0 0 72 14" width="72" height="14">
+      <path d="M1 7h25M46 7h25M36 1v12M30 7h12" fill="none" stroke="currentColor" stroke-linecap="round"/>
+    </svg>
+  </span>
+
+  <span class="product-placeholder__message">
+    {{ settings.product_placeholder_message | default: 'Image coming soon' | escape }}
+  </span>
+</div>
+
+{% stylesheet %}
+  .product-placeholder {
+    aspect-ratio: 4 / 5;
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.65rem, 2vw, 1rem);
+    padding: clamp(1.25rem, 4vw, 3rem);
+    color: var(--color-foreground);
+    background:
+      radial-gradient(circle at 50% 44%, color-mix(in srgb, var(--color-surface) 70%, transparent), transparent 45%),
+      var(--color-soft-cream);
+    text-align: center;
+  }
+
+  .product-placeholder__mark {
+    width: min(70%, 12rem);
+    display: flex;
+    justify-content: center;
+  }
+
+  .product-placeholder__mark img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 7rem;
+    object-fit: contain;
+  }
+
+  .product-placeholder__wordmark {
+    font-size: clamp(1.15rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+  }
+
+  .product-placeholder__ornament {
+    color: var(--color-rose-dark);
+    opacity: 0.75;
+  }
+
+  .product-placeholder__ornament svg {
+    width: 3.75rem;
+    height: auto;
+  }
+
+  .product-placeholder__message {
+    color: var(--color-muted);
+    font-size: clamp(0.65rem, 1.2vw, 0.78rem);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+{% endstylesheet %}

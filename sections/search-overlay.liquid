@@ -1,0 +1,451 @@
+<search-overlay>
+  <dialog
+    class="search-overlay"
+    data-search-dialog
+    aria-labelledby="SearchOverlayTitle"
+    scroll-lock
+  >
+    <div class="search-overlay__panel">
+      <header class="search-overlay__header">
+        <div>
+          <p class="eyebrow">Find something special</p>
+          <h2 id="SearchOverlayTitle">Search Little J’s</h2>
+        </div>
+        <button class="search-overlay__close" type="button" data-search-close aria-label="Close search">
+          <span></span><span></span>
+        </button>
+      </header>
+
+      <form
+        class="search-overlay__form"
+        id="SearchOverlayForm"
+        action="{{ routes.search_url }}"
+        method="get"
+        role="search"
+      >
+        <label class="visually-hidden" for="SearchOverlayInput">Search our store</label>
+        <div class="search-overlay__field">
+          {{ 'icon-search.svg' | inline_asset_content }}
+          <input
+            id="SearchOverlayInput"
+            type="search"
+            name="q"
+            value="{{ search.terms | escape }}"
+            placeholder="Search clothing, gifts, and more"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded="false"
+            aria-controls="SearchOverlayResults"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            data-search-input
+          >
+          <button type="submit" aria-label="Submit search">Search</button>
+        </div>
+        <input type="hidden" name="options[prefix]" value="last">
+      </form>
+
+      <p class="search-overlay__status visually-hidden" role="status" aria-live="polite" data-search-status></p>
+
+      <div
+        class="search-overlay__results"
+        id="SearchOverlayResults"
+        data-search-results
+        aria-live="polite"
+      >
+        <div class="search-overlay__prompt">
+          <p>Start typing to see products, collections, and stories.</p>
+          <a href="{{ routes.search_url }}">Visit the search page</a>
+        </div>
+      </div>
+    </div>
+  </dialog>
+</search-overlay>
+
+{% stylesheet %}
+  .search-overlay {
+    width: min(44rem, calc(100% - 2rem));
+    max-width: none;
+    max-height: min(44rem, calc(100dvh - 3rem));
+    margin: auto;
+    padding: 0;
+    color: var(--color-foreground);
+    background: transparent;
+    border: 0;
+    overflow: visible;
+  }
+
+  .search-overlay::backdrop {
+    background: rgb(41 36 33 / 0.58);
+    backdrop-filter: blur(3px);
+  }
+
+  .search-overlay__panel {
+    max-height: min(44rem, calc(100dvh - 3rem));
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    background: var(--color-background);
+    border: 1px solid var(--color-line);
+    border-radius: calc(var(--style-border-radius-inputs) * 2);
+    box-shadow: 0 1.5rem 5rem rgb(41 36 33 / 0.22);
+    overflow: hidden;
+  }
+
+  .search-overlay__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .search-overlay__header h2 {
+    font-size: clamp(1.5rem, 4vw, 2.15rem);
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+  }
+
+  .search-overlay__close {
+    width: 2.75rem;
+    height: 2.75rem;
+    flex: 0 0 auto;
+    position: relative;
+    padding: 0;
+    color: inherit;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: 50%;
+  }
+
+  .search-overlay__close span {
+    width: 1rem;
+    height: 1px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: currentColor;
+  }
+
+  .search-overlay__close span:first-child {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  .search-overlay__close span:last-child {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+  .search-overlay__field {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    border: 1px solid var(--color-foreground);
+    border-radius: var(--style-border-radius-inputs);
+    overflow: hidden;
+  }
+
+  .search-overlay__field:focus-within {
+    outline: 2px solid var(--color-rose-dark);
+    outline-offset: 2px;
+  }
+
+  .search-overlay__field svg {
+    width: 1.25rem;
+    margin-left: 1rem;
+  }
+
+  .search-overlay__field input {
+    min-width: 0;
+    padding-inline: 0.75rem;
+    background: transparent;
+    border: 0;
+    outline: 0;
+  }
+
+  .search-overlay__field button {
+    align-self: stretch;
+    padding-inline: 1.15rem;
+    color: var(--color-background);
+    background: var(--color-foreground);
+    border: 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .search-overlay__results {
+    min-height: 8rem;
+    margin-top: 1.25rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .search-overlay__prompt,
+  .predictive-search__empty {
+    min-height: 8rem;
+    display: grid;
+    place-content: center;
+    gap: 0.5rem;
+    color: var(--color-muted);
+    text-align: center;
+  }
+
+  .search-overlay__prompt a,
+  .predictive-search__empty a {
+    color: var(--color-foreground);
+    font-weight: 700;
+  }
+
+  .search-overlay.is-loading .search-overlay__results {
+    opacity: 0.45;
+  }
+
+  .predictive-search__group + .predictive-search__group {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .predictive-search__heading {
+    margin-bottom: 0.75rem;
+    color: var(--color-muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .predictive-search__products {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    list-style: none;
+  }
+
+  .predictive-search__product a {
+    min-height: 5rem;
+    display: grid;
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    align-items: center;
+    gap: 0.85rem;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .predictive-search__product img,
+  .predictive-search__image-placeholder {
+    width: 4.5rem;
+    height: 5rem;
+    background: var(--color-surface);
+    border-radius: var(--style-border-radius-inputs);
+    object-fit: cover;
+  }
+
+  .predictive-search__product h3 {
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+
+  .predictive-search__product p {
+    margin-top: 0.2rem;
+    color: var(--color-muted);
+    font-size: 0.82rem;
+  }
+
+  .predictive-search__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    list-style: none;
+  }
+
+  .predictive-search__links a {
+    display: inline-flex;
+    padding: 0.45rem 0.75rem;
+    color: inherit;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .predictive-search__view-all {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding: 1rem 0 0;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    border-top: 1px solid var(--color-line);
+    font-weight: 700;
+    text-align: left;
+  }
+
+  @media (max-width: 700px) {
+    .search-overlay {
+      width: 100%;
+      max-height: 88dvh;
+      margin: auto 0 0;
+    }
+
+    .search-overlay__panel {
+      max-height: 88dvh;
+      padding: 1.25rem var(--page-margin) max(1.25rem, env(safe-area-inset-bottom));
+      border-width: 1px 0 0;
+      border-radius: 1.25rem 1.25rem 0 0;
+      box-shadow: 0 -1.5rem 5rem rgb(41 36 33 / 0.2);
+    }
+
+    .search-overlay__panel::before {
+      content: '';
+      width: 2.5rem;
+      height: 0.25rem;
+      margin: -0.5rem auto 0.75rem;
+      background: var(--color-line);
+      border-radius: 999px;
+    }
+
+    .search-overlay__header {
+      margin-bottom: 1rem;
+    }
+
+    .search-overlay__header .eyebrow {
+      display: none;
+    }
+
+    .search-overlay__field button {
+      padding-inline: 0.85rem;
+    }
+
+    .predictive-search__products {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  class SearchOverlay extends HTMLElement {
+    constructor() {
+      super();
+      this.dialog = this.querySelector('[data-search-dialog]');
+      this.input = this.querySelector('[data-search-input]');
+      this.results = this.querySelector('[data-search-results]');
+      this.status = this.querySelector('[data-search-status]');
+      this.timer = null;
+      this.request = null;
+      this.initialContent = this.results.innerHTML;
+    }
+
+    connectedCallback() {
+      document.querySelectorAll('[data-search-open]').forEach((trigger) => {
+        trigger.addEventListener('click', () => this.open());
+      });
+
+      this.querySelector('[data-search-close]').addEventListener('click', () => this.close());
+      this.dialog.addEventListener('click', (event) => {
+        if (event.target === this.dialog) this.close();
+      });
+      this.input.addEventListener('input', () => this.queueSearch());
+      this.dialog.addEventListener('close', () => this.reset());
+    }
+
+    open() {
+      document.querySelectorAll('.site-header__drawer-toggle:checked').forEach((toggle) => {
+        toggle.checked = false;
+      });
+      if (!this.dialog.open) this.dialog.showModal();
+      requestAnimationFrame(() => this.input.focus());
+    }
+
+    close() {
+      if (this.dialog.open) this.dialog.close();
+    }
+
+    reset() {
+      window.clearTimeout(this.timer);
+      if (this.request) this.request.abort();
+      this.input.setAttribute('aria-expanded', 'false');
+      this.classList.remove('is-loading');
+    }
+
+    queueSearch() {
+      window.clearTimeout(this.timer);
+      if (this.request) this.request.abort();
+
+      const term = this.input.value.trim();
+      if (term.length < 2) {
+        this.results.innerHTML = this.initialContent;
+        this.input.setAttribute('aria-expanded', 'false');
+        this.setStatus('');
+        return;
+      }
+
+      this.timer = window.setTimeout(() => this.search(term), 200);
+    }
+
+    async search(term) {
+      this.request = new AbortController();
+      this.classList.add('is-loading');
+      this.setStatus('Loading search suggestions');
+
+      const root = window.Shopify?.routes?.root || '/';
+      const query = new URLSearchParams({
+        q: term,
+        'resources[type]': 'product,collection,page,article',
+        'resources[limit]': '8',
+        'resources[limit_scope]': 'all',
+        'resources[options][unavailable_products]': 'last',
+        section_id: 'predictive-search'
+      });
+
+      try {
+        const response = await fetch(`${root}search/suggest?${query}`, {
+          signal: this.request.signal,
+          headers: { Accept: 'text/html' }
+        });
+        if (!response.ok) throw new Error('Search request failed');
+
+        const text = await response.text();
+        const documentFragment = new DOMParser().parseFromString(text, 'text/html');
+        const section = documentFragment.querySelector('#shopify-section-predictive-search');
+        if (!section) throw new Error('Search results were unavailable');
+
+        this.results.innerHTML = section.innerHTML;
+        this.input.setAttribute('aria-expanded', 'true');
+        this.setStatus(`Search suggestions updated for ${term}`);
+      } catch (error) {
+        if (error.name !== 'AbortError') {
+          this.results.innerHTML = `
+            <div class="predictive-search__empty">
+              <p>We couldn’t load suggestions just now.</p>
+              <button class="button" type="submit" form="${this.input.form.id}">Search the store</button>
+            </div>
+          `;
+          this.setStatus('Search suggestions could not be loaded');
+        }
+      } finally {
+        this.classList.remove('is-loading');
+      }
+    }
+
+    setStatus(message) {
+      this.status.textContent = message;
+    }
+  }
+
+  if (!customElements.get('search-overlay')) {
+    customElements.define('search-overlay', SearchOverlay);
+  }
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Search overlay",
+  "settings": []
+}
+{% endschema %}
