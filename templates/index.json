@@ -1,8 +1,18 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "editorial-hero",
       "settings": {
+        "image": "shopify://shop_images/backgroudImage.jpg",
         "eyebrow": "The best woman's & children’s wear around",
         "heading": "Dressed for Childhood.",
         "text": "Thoughtful pieces for everyday play, portraits, and the moments in between.",
@@ -19,23 +29,38 @@
       "blocks": {
         "girls": {
           "type": "link",
-          "settings": { "label": "Girls", "link": "/collections/girls" }
+          "settings": {
+            "label": "Girls",
+            "link": "/collections/girls"
+          }
         },
         "boys": {
           "type": "link",
-          "settings": { "label": "Boys", "link": "/collections/boys" }
+          "settings": {
+            "label": "Boys",
+            "link": "/collections/boys"
+          }
         },
         "baby": {
           "type": "link",
-          "settings": { "label": "Baby", "link": "/collections/baby" }
+          "settings": {
+            "label": "Baby",
+            "link": "/collections/baby"
+          }
         },
         "swim": {
           "type": "link",
-          "settings": { "label": "Swim", "link": "/collections/swim" }
+          "settings": {
+            "label": "Swim",
+            "link": "/collections/swim"
+          }
         },
         "seasonal": {
           "type": "link",
-          "settings": { "label": "Seasonal", "link": "/collections/seasonal" }
+          "settings": {
+            "label": "Seasonal",
+            "link": "/collections/seasonal"
+          }
         },
         "accessories": {
           "type": "link",
@@ -53,13 +78,16 @@
         "seasonal",
         "accessories"
       ],
-      "settings": { "accessibility_label": "Shop by category" }
+      "settings": {
+        "accessibility_label": "Shop by category"
+      }
     },
     "featured": {
       "type": "featured-products",
       "settings": {
         "eyebrow": "Latest drop",
         "heading": "Trending Now",
+        "collection": "",
         "products_to_show": 4,
         "show_badges": true,
         "link_label": "View all"
@@ -95,15 +123,28 @@
       "blocks": {
         "satisfaction": {
           "type": "item",
-          "settings": { "text": "Satisfaction guaranteed" }
+          "settings": {
+            "text": "Satisfaction guaranteed"
+          }
         },
         "checkout": {
           "type": "item",
-          "settings": { "text": "Secure checkout" }
+          "settings": {
+            "text": "Secure checkout"
+          }
         },
-        "packed": { "type": "item", "settings": { "text": "Carefully packed" } }
+        "packed": {
+          "type": "item",
+          "settings": {
+            "text": "Carefully packed"
+          }
+        }
       },
-      "block_order": ["satisfaction", "checkout", "packed"],
+      "block_order": [
+        "satisfaction",
+        "checkout",
+        "packed"
+      ],
       "settings": {}
     },
     "reviews": {
@@ -112,26 +153,30 @@
         "review_1": {
           "type": "testimonial",
           "settings": {
-            "name": "MaKenzie Mathis",
-            "quote": "I’d give 100 stars if I could! The cutest outfits, the best quality and so affordable!"
+            "quote": "I’d give 100 stars if I could! The cutest outfits, the best quality and so affordable!",
+            "name": "MaKenzie Mathis"
           }
         },
         "review_2": {
           "type": "testimonial",
           "settings": {
-            "name": "Tiffany Long",
-            "quote": "We absolutely love Little J’s Smocks!! We have so many matching brother sister outfits from here!! Highly recommend them to everyone wanting sibling sets!!"
+            "quote": "We absolutely love Little J’s Smocks!! We have so many matching brother sister outfits from here!! Highly recommend them to everyone wanting sibling sets!!",
+            "name": "Tiffany Long"
           }
         },
         "review_3": {
           "type": "testimonial",
           "settings": {
-            "name": "Ashley Yawn",
-            "quote": "This is literally the best company! Everything is SO affordable and great quality. Definitely a 10/10!"
+            "quote": "This is literally the best company! Everything is SO affordable and great quality. Definitely a 10/10!",
+            "name": "Ashley Yawn"
           }
         }
       },
-      "block_order": ["review_1", "review_2", "review_3"],
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ],
       "settings": {
         "eyebrow": "Kind words",
         "heading": "Loved by Little J’s Families"
