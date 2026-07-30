@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "page",
+      "disabled": true,
       "settings": {
         "eyebrow": "Customer care",
         "introduction": "",
@@ -23,9 +24,9 @@
       "type": "contact-form",
       "settings": {
         "form_type": "wholesale",
-        "eyebrow": "Send us a note",
-        "heading": "How can we help?",
-        "text": "<p>Questions about an order, sizing, or an upcoming collection? We’d love to hear from you.</p>",
+        "eyebrow": "customer care",
+        "heading": "Wholesale Inquiries",
+        "text": "<p>Please fill out the form to apply for wholesale items. </p>",
         "email": "",
         "phone": "",
         "wholesale_note": "We are currently accepting wholesale applications from businesses with a physical retail location.",
