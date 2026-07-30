@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "footer",
   "name": "Footer group",
@@ -7,11 +16,17 @@
       "blocks": {
         "shop_menu": {
           "type": "menu",
-          "settings": { "heading": "Shop", "menu": "main-menu" }
+          "settings": {
+            "heading": "Shop",
+            "menu": "main-menu"
+          }
         },
         "help_menu": {
           "type": "menu",
-          "settings": { "heading": "Help", "menu": "footer" }
+          "settings": {
+            "heading": "Help",
+            "menu": "footer"
+          }
         },
         "newsletter": {
           "type": "newsletter",
@@ -22,8 +37,13 @@
           }
         }
       },
-      "block_order": ["shop_menu", "help_menu", "newsletter"],
+      "block_order": [
+        "shop_menu",
+        "help_menu",
+        "newsletter"
+      ],
       "settings": {
+        "logo": "shopify://shop_images/Bazaart_C8B30153-2C74-4FB2-AB8B-CA0ACC912717.png",
         "logo_width": 160,
         "wordmark": "Little J’s",
         "tagline": "Beautiful smocked clothing for every little occasion.",
@@ -32,5 +52,7 @@
       }
     }
   },
-  "order": ["footer"]
+  "order": [
+    "footer"
+  ]
 }
