@@ -29,7 +29,7 @@
         "text": "<p>Please fill out the form to apply for wholesale items. </p>",
         "email": "",
         "phone": "",
-        "wholesale_note": "We are currently accepting wholesale applications from businesses with a physical retail location.",
+        "wholesale_note": "",
         "button_label": "Send message",
         "success_heading": "Message received",
         "success_text": "Thanks for reaching out. We’ll be in touch soon.",
