@@ -87,7 +87,7 @@
       "settings": {
         "eyebrow": "Latest drop",
         "heading": "Trending Now",
-        "collection": "",
+        "collection": "new-arrivals",
         "products_to_show": 4,
         "show_badges": true,
         "link_label": "View all"

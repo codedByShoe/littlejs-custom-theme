@@ -8,5 +8,8 @@
  * ------------------------------------------------------------
  */
 {
-  "current": {}
+  "current": {
+    "product_placeholder_logo": "shopify://shop_images/Bazaart_C8B30153-2C74-4FB2-AB8B-CA0ACC912717.png",
+    "content_for_index": []
+  }
 }
