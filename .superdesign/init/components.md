@@ -1,134 +1,107 @@
 # Shared UI Components
 
-## `snippets/image.liquid` — ResponsiveImage
+Reusable pieces live in `snippets/` (rendered with `{% render %}`, not merchant-editable) and `blocks/` (merchant-editable in the theme editor). Every snippet carries a `{% doc %}` header declaring its parameters, and component CSS lives in the file's own `{% stylesheet %}` block.
 
-Responsive image wrapper with optional link, size, and crop parameters.
+## `snippets/product-card.liquid` — ProductCard
+
+The shared product tile used by the collection grid, search results, predictive search, and featured products. There is no generic image snippet in this theme — cards render `image_tag` directly.
 
 ```liquid
 {% doc %}
-  Renders a responsive image that might be wrapped in a link.
+  Renders a lightweight product card.
 
-  @param {image} image - The image to be rendered
-  @param {string} [url] - An optional destination URL for the image
-  @param {string} [class] - Optional class to be added to the image wrapper
-  @param {number} [width] - The highest resolution width of the image to be rendered
-  @param {number} [height] - The highest resolution height of the image to be rendered
-  @param {string} [crop] - The crop position of the image
+  @param {product} product - Product to render.
+  @param {boolean} [show_badge] - Whether to show availability or preorder status.
+  @param {string} [image_sizes] - Responsive sizes attribute.
+
+  @example
+  {% render 'product-card', product: product, show_badge: true %}
 {% enddoc %}
-
-{% liquid
-  unless height
-    assign width = width | default: image.width
-  endunless
-
-  if url
-    assign wrapper = 'a'
-  else
-    assign wrapper = 'div'
-  endif
-%}
-
-<{{ wrapper }}
-  class="image {{ class }}"
-  {% if url %}
-    href="{{ url }}"
-  {% endif %}
->
-  {{ image | image_url: width: width, height: height, crop: crop | image_tag }}
-</{{ wrapper }}>
-
-{% stylesheet %}
-  .image {
-    display: block;
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    height: auto;
-  }
-
-  .image > img {
-    width: 100%;
-    height: auto;
-  }
-{% endstylesheet %}
 ```
+
+- Badge logic, when `show_badge` is truthy, in priority order: `product.available == false` → "Sold out"; tag `Preorder` → "Preorder"; tag `Ready to ship` → "Ready to ship". These are **tag-driven conventions** shared with merchandising.
+- Media is a `4 / 5` aspect box on `--color-soft-cream` with `--style-border-radius-media`, `object-fit: cover`, `loading: 'lazy'`, and widths `240–900`. Callers pass `image_sizes` matching their grid (e.g. `'(min-width: 990px) 25vw, 50vw'`).
+- Falls back to `snippets/product-placeholder.liquid` when the product has no featured image.
+- Price uses the global `.price--sale` / `.price--compare` primitives from `critical.css` and prefixes `From` when `product.price_varies`.
+
+## `snippets/product-placeholder.liquid` — ProductPlaceholder
+
+Branded fallback for products without media. Matches the card's `4 / 5` box so grids stay aligned.
+
+```liquid
+{% doc %}
+  Renders the branded fallback shown when a product has no media.
+
+  @param {string} [class] - Optional additional CSS class.
+{% enddoc %}
+```
+
+Renders the merchant's `settings.product_placeholder_logo` (or `settings.brand_name` as a wordmark), a small inline SVG ornament, and `settings.product_placeholder_message` (default "Image coming soon"). The wrapper is `role="img"` with the message as its `aria-label`, and the decorative children are `aria-hidden`.
+
+## `snippets/pagination.liquid` — Pagination
+
+```liquid
+{% doc %}
+  Renders pagination controls for a Shopify paginate object.
+
+  @param {object} paginate - The paginate object available inside a paginate tag.
+  @param {string} [anchor] - Optional fragment identifier appended to pagination URLs.
+{% enddoc %}
+```
+
+Renders nothing when `paginate.pages <= 1`. Emits a "Page X of Y" summary, previous/next controls, numbered `paginate.parts`, and an ellipsis span for gaps. The current page is a `<span aria-current="page">` with a `.visually-hidden` "Current page" label. `anchor` is appended to every href — `sections/article.liquid` passes `'#comments'`.
+
+## `snippets/meta-tags.liquid` — MetaTags
+
+Charset, viewport, and `theme-color` (from `settings.background_color`), then the canonical URL, an Open Graph/Twitter card set, and page-appropriate JSON-LD. Title composition appends current tags, page number, and the shop name when not already present. `page_image` falls back to `settings.social_sharing_image`. Rendered by both layouts.
+
+## `snippets/css-variables.liquid` — DesignTokens
+
+Emits the `@font-face` declarations (base + bold, `font-display: swap`) and the `:root` custom properties consumed by every component. See `theme.md` for the full token list. This is the only place merchant settings become CSS.
+
+## `snippets/scroll-reveal.liquid` — ScrollReveal
+
+The site-wide scroll animation. Rendered in `<head>` by `layout/theme.liquid`; the only inline `<script>` in the theme.
+
+Sets `data-reveal-ready` on `<html>` before first paint, but only when `IntersectionObserver` is supported and the visitor has not requested reduced motion. The hidden state in `critical.css` is scoped to that attribute, so with no JS, an old browser, or reduced motion nothing is ever hidden.
+
+- `data-reveal` on an element fades and lifts it into view once, then unobserves it.
+- `data-reveal-stagger` on a parent staggers its `data-reveal` children by 80ms each, capped at 400ms.
+- Do not add `data-reveal` inside `product-card.liquid` — predictive search injects cards after the observer has run and they would never be revealed. Mark the static grid container instead.
+- The hero is deliberately excluded; it carries the LCP image.
 
 ## `blocks/text.liquid` — Text
 
-Theme-editor text block with title, subtitle, and normal styles plus alignment.
+Theme-editor text block with title/subtitle/normal styles and alignment. Rendered inside `@theme`-accepting containers (`blocks/group.liquid`, `sections/custom-section.liquid`).
 
-```liquid
-{% doc %}
-  Renders a text block.
-{% enddoc %}
-
-<div
-  class="text {{ block.settings.text_style }}"
-  style="--text-align: {{ block.settings.alignment }}"
-  {{ block.shopify_attributes }}
->
-  {{ block.settings.text }}
-</div>
-
-{% stylesheet %}
-  .text {
-    text-align: var(--text-align);
-  }
-  .text--title {
-    font-size: 2rem;
-    font-weight: 700;
-  }
-  .text--subtitle {
-    font-size: 1.5rem;
-  }
-{% endstylesheet %}
-```
+Settings: `text`, `text_style` (`text--title` | `text--subtitle` | `text--normal`), `alignment`.
 
 ## `blocks/group.liquid` — Group
 
-Nestable horizontal or vertical flex layout controlled in the theme editor.
+Nestable horizontal or vertical flex container that renders `{% content_for 'blocks' %}`. Settings apply to a single dimension each to keep configuration simple.
 
-```liquid
-{% doc %}
-  Renders a group of blocks with configurable layout direction, gap and alignment.
-{% enddoc %}
+Settings: `layout_direction` (`group--horizontal` | `group--vertical`), `alignment`, `padding`.
 
-<div
-  class="group {{ block.settings.layout_direction }}"
-  style="
-    --padding: {{ block.settings.padding }}px;
-    --alignment: {{ block.settings.alignment }};
-  "
-  {{ block.shopify_attributes }}
->
-  {% content_for 'blocks' %}
-</div>
+Both blocks are inherited from the Skeleton Theme, are labelled with `t:` translation keys, and are the only components in the theme that use them consistently.
 
-{% stylesheet %}
-  .group {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow: hidden;
-    width: 100%;
-  }
+## Repeating section blocks
 
-  .group--horizontal {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 var(--padding);
-  }
+These are declared inline in their section's `{% schema %}` rather than as files in `blocks/`:
 
-  .group--vertical {
-    flex-direction: column;
-    align-items: var(--alignment);
-    padding: var(--padding) 0;
-  }
-{% endstylesheet %}
-```
+| Section | Block type | Settings |
+| --- | --- | --- |
+| `category-strip` | `link` | `label`, `link` |
+| `trust-bar` | `item` | heading/text pair |
+| `testimonials` | `testimonial` | quote and attribution |
+| `faq` | `question` | `question`, `answer` (richtext) |
+| `shipping-feature` | `option` | `title`, `text` |
+| `footer` | `menu`, `newsletter` | `heading` + `menu`; `heading`, `text`, `button_label` |
 
-## Existing asset icons
+## Asset icons
 
-- `assets/icon-account.svg` — customer account icon
-- `assets/icon-cart.svg` — shopping bag/cart icon
+Inlined with `inline_asset_content`, not `asset_url`:
 
+- `assets/icon-search.svg` — header and search overlay
+- `assets/icon-account.svg` — header customer account
+- `assets/icon-cart.svg` — header cart trigger
+- `assets/shoppy-x-ray.svg` — Skeleton Theme artwork; used only by the unused `hello-world` section and the README

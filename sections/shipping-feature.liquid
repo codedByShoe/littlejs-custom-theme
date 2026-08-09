@@ -1,0 +1,175 @@
+<section class="shipping-feature section-spacing">
+  <div class="shipping-feature__media" data-reveal>
+    {% if section.settings.image %}
+      {{ section.settings.image
+        | image_url: width: 1400
+        | image_tag:
+          widths: '420, 600, 840, 1100, 1400',
+          sizes: '(min-width: 990px) 45vw, calc(100vw - 2rem)',
+          loading: 'lazy',
+          alt: section.settings.image.alt
+      }}
+    {% else %}
+      {{ 'lifestyle-1' | placeholder_svg_tag }}
+    {% endif %}
+  </div>
+
+  <div class="shipping-feature__copy">
+    <div data-reveal>
+      {% if section.settings.eyebrow != blank %}
+        <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {% endif %}
+      <h2>{{ section.settings.heading | escape }}</h2>
+      {% if section.settings.text != blank %}
+        <div class="rte shipping-feature__intro">{{ section.settings.text }}</div>
+      {% endif %}
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <ul class="shipping-feature__options" role="list" data-reveal-stagger>
+        {% for block in section.blocks %}
+          <li class="shipping-feature__option" data-reveal {{ block.shopify_attributes }}>
+            <h3>{{ block.settings.title | escape }}</h3>
+            {% if block.settings.text != blank %}<p>{{ block.settings.text | escape }}</p>{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if section.settings.link_label != blank %}
+      <div data-reveal>
+        <a class="button button--secondary" href="{{ section.settings.link }}">
+          {{- section.settings.link_label | escape -}}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .shipping-feature {
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(16rem, 6fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: center;
+  }
+
+  .shipping-feature__media {
+    aspect-ratio: 5 / 4;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--color-rose) 20%, var(--color-background));
+    border-radius: var(--style-border-radius-media);
+  }
+
+  .shipping-feature__media img,
+  .shipping-feature__media svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .shipping-feature__copy h2 {
+    max-width: 12ch;
+    margin-top: 0.7rem;
+  }
+
+  .shipping-feature__intro {
+    margin-top: 1.5rem;
+    color: var(--color-muted);
+  }
+
+  .shipping-feature__options {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .shipping-feature__option {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .shipping-feature__option h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .shipping-feature__option p {
+    max-width: 46ch;
+    margin-top: 0.4rem;
+    color: var(--color-muted);
+  }
+
+  .shipping-feature .button {
+    margin-top: 2.5rem;
+  }
+
+  @media (max-width: 760px) {
+    .shipping-feature {
+      grid-template-columns: 1fr;
+    }
+
+    .shipping-feature__options {
+      margin-top: 2rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Shipping feature",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Getting your order" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Pick Up Nearby or Ship to Your Door" },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>However you shop with us, your order is wrapped by hand and on its way quickly.</p>"
+    },
+    { "type": "text", "id": "link_label", "label": "Button label", "default": "Read our shipping policy" },
+    { "type": "url", "id": "link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "option",
+      "name": "Delivery option",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Local pickup" },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Choose pickup at checkout and we will email you the moment your order is packed and ready."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Shipping feature",
+      "blocks": [
+        {
+          "type": "option",
+          "settings": {
+            "title": "Local pickup",
+            "text": "Choose pickup at checkout and we will email you the moment your order is packed and ready."
+          }
+        },
+        {
+          "type": "option",
+          "settings": {
+            "title": "Shipping available",
+            "text": "We ship nationwide. Shipping is calculated at checkout."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

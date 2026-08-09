@@ -1,3 +1,9 @@
+{%- liquid
+  # shop.name is the previous business name and cannot be changed yet. See CLAUDE.md.
+  assign brand_name = settings.brand_name | default: shop.name
+  assign footer_wordmark = section.settings.wordmark | default: brand_name
+-%}
+
 <footer class="site-footer">
   <div class="site-footer__grid">
     <div class="site-footer__brand">
@@ -13,10 +19,10 @@
               widths: '120, 180, 240, 360, 480',
               width: section.settings.logo_width,
               loading: 'lazy',
-              alt: shop.name
+              alt: brand_name
           }}
         {% else %}
-          {{ section.settings.wordmark | default: shop.name | escape }}
+          {{ footer_wordmark | escape }}
         {% endif %}
       </a>
       {% if section.settings.tagline != blank %}<p>{{ section.settings.tagline | escape }}</p>{% endif %}
@@ -60,7 +66,7 @@
   </div>
 
   <div class="site-footer__bottom">
-    <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name | escape }}</p>
+    <p>&copy; {{ 'now' | date: '%Y' }} {{ brand_name | escape }}</p>
     {% if section.settings.show_payment_icons %}
       <div class="site-footer__payments" aria-label="Accepted payment methods">
         {% for type in shop.enabled_payment_types %}
@@ -213,7 +219,7 @@
     { "type": "image_picker", "id": "logo", "label": "Logo" },
     { "type": "range", "id": "logo_width", "label": "Logo width", "min": 80, "max": 280, "step": 10, "unit": "px", "default": 160 },
     { "type": "text", "id": "wordmark", "label": "Wordmark", "default": "Little J’s" },
-    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Beautiful smocked clothing for every little occasion." },
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Beautiful clothing for every little occasion." },
     { "type": "checkbox", "id": "show_social", "label": "Show social links", "default": false },
     { "type": "checkbox", "id": "show_payment_icons", "label": "Show payment icons", "default": true }
   ],

@@ -12,14 +12,13 @@
     "hero": {
       "type": "editorial-hero",
       "settings": {
-        "image": "shopify://shop_images/backgroudImage.jpg",
-        "eyebrow": "The best woman's & children’s wear around",
+        "eyebrow": "Children’s & women’s boutique clothing",
         "heading": "Dressed for Childhood.",
         "text": "Thoughtful pieces for everyday play, portraits, and the moments in between.",
-        "primary_eyebrow": "Collection",
+        "primary_eyebrow": "New in",
         "primary_label": "Shop New Arrivals",
         "primary_link": "/collections/new-arrivals",
-        "secondary_eyebrow": "Ongoing",
+        "secondary_eyebrow": "Open now",
         "secondary_label": "Current Preorders",
         "secondary_link": "/collections/current-preorder"
       }
@@ -29,17 +28,15 @@
       "blocks": {
         "girls": {
           "type": "link",
-          "settings": {
-            "label": "New arrivals",
-            "link": "shopify://collections/new-arrivals"
-          }
+          "settings": { "label": "Belles", "link": "/collections/ready-to-ship-girls" }
         },
-        "seasonal": {
+        "boys": {
           "type": "link",
-          "settings": {
-            "label": "Adults",
-            "link": "shopify://collections/mom-rts"
-          }
+          "settings": { "label": "Beaus", "link": "/collections/ready-to-ship-boys" }
+        },
+        "activewear": {
+          "type": "link",
+          "settings": { "label": "Activewear", "link": "/collections/activewear" }
         },
         "boys": {
           "type": "link",
@@ -50,23 +47,13 @@
         },
         "baby": {
           "type": "link",
-          "settings": {
-            "label": "Girls",
-            "link": "shopify://collections/ready-to-ship-girls"
-          }
+          "settings": { "label": "Seasonal", "link": "/pages/shop-by-occasion" }
         },
         "accessories": {
           "type": "link",
           "settings": {
             "label": "Accessories",
-            "link": "shopify://collections/accesories"
-          }
-        },
-        "swim": {
-          "type": "link",
-          "settings": {
-            "label": "clearance",
-            "link": "shopify://collections/clearance"
+            "link": "/collections/accesories"
           }
         }
       },
@@ -74,9 +61,10 @@
         "girls",
         "seasonal",
         "boys",
-        "baby",
-        "accessories",
-        "swim"
+        "activewear",
+        "swim",
+        "seasonal",
+        "accessories"
       ],
       "settings": {
         "accessibility_label": "Shop by category"
@@ -85,22 +73,22 @@
     "featured": {
       "type": "featured-products",
       "settings": {
-        "eyebrow": "Latest drop",
-        "heading": "Trending Now",
+        "eyebrow": "Just arrived",
+        "heading": "New Arrivals",
         "collection": "new-arrivals",
         "products_to_show": 4,
         "show_badges": true,
-        "link_label": "View all"
+        "link_label": "View all new arrivals"
       }
     },
     "fulfillment": {
       "type": "fulfillment-split",
       "settings": {
-        "first_eyebrow": "Fast fulfillment",
+        "first_eyebrow": "Available now",
         "first_heading": "Ready to Ship",
         "first_text": "In-stock favorites are packed with care and sent from our boutique within 2–3 business days.",
         "first_label": "Shop available now",
-        "first_link": "/collections/ready-to-ship",
+        "first_link": "/pages/ready-to-ship",
         "second_eyebrow": "Plan ahead",
         "second_heading": "Current Preorders",
         "second_text": "Reserve upcoming seasonal favorites and matching sets. Estimated ship dates are listed on every product page.",
@@ -113,9 +101,34 @@
       "settings": {
         "eyebrow": "Made to coordinate",
         "heading": "Sibling Sets Made Simple",
-        "text": "<p>Matching moments, without the guesswork. Shop coordinated colors and smocking for brothers and sisters.</p>",
-        "link_label": "Shop matching sets",
-        "link": "/collections/sibling-sets"
+        "text": "<p>Matching moments, without the guesswork. Shop coordinated colors and prints for brothers and sisters.</p>"
+      }
+    },
+    "shipping": {
+      "type": "shipping-feature",
+      "blocks": {
+        "pickup": {
+          "type": "option",
+          "settings": {
+            "title": "Local pickup",
+            "text": "Choose pickup at checkout and we will email you the moment your order is packed and ready."
+          }
+        },
+        "shipping": {
+          "type": "option",
+          "settings": {
+            "title": "Shipping available",
+            "text": "We ship nationwide. Shipping is calculated at checkout."
+          }
+        }
+      },
+      "block_order": ["pickup", "shipping"],
+      "settings": {
+        "eyebrow": "Getting your order",
+        "heading": "Pick Up Nearby or Ship to Your Door",
+        "text": "<p>However you shop with us, your order is wrapped by hand and on its way quickly.</p>",
+        "link_label": "Read our shipping policy",
+        "link": "/policies/shipping-policy"
       }
     },
     "trust": {
@@ -133,12 +146,7 @@
             "text": "Secure checkout"
           }
         },
-        "packed": {
-          "type": "item",
-          "settings": {
-            "text": "Carefully packed"
-          }
-        }
+        "packed": { "type": "item", "settings": { "text": "Packed with care" } }
       },
       "block_order": [
         "satisfaction",
@@ -185,9 +193,9 @@
     "newsletter": {
       "type": "newsletter-band",
       "settings": {
-        "eyebrow": "Stay in the loop",
+        "eyebrow": "Stay in touch",
         "heading": "Join the Little J’s Family",
-        "text": "Get early access to new collections, preorders, and seasonal favorites.",
+        "text": "Be first to hear about new arrivals, preorder openings, and seasonal collections.",
         "button_label": "Subscribe"
       }
     }
@@ -198,6 +206,7 @@
     "featured",
     "fulfillment",
     "siblings",
+    "shipping",
     "trust",
     "reviews",
     "newsletter"

@@ -19,7 +19,7 @@
           alt: ''
       }}
     {% else %}
-      <span class="product-placeholder__wordmark">{{ shop.name | escape }}</span>
+      <span class="product-placeholder__wordmark">{{ settings.brand_name | default: shop.name | escape }}</span>
     {% endif %}
   </span>
 

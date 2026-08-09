@@ -14,8 +14,7 @@
     "announcement": {
       "type": "announcement-bar",
       "settings": {
-        "text": "New look - same great collections - shop little j's today",
-        "link": "",
+        "text": "Preorders now open — Reserve your favorites",
         "background": "#292421",
         "text_color": "#fbf8f3"
       }

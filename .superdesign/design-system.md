@@ -2,7 +2,7 @@
 
 ## Product context
 
-Little J’s is a Shopify children’s boutique specializing in smocked and custom children’s clothing, sibling sets, seasonal collections, ready-to-ship items, preorders, swim, and accessories. The storefront should help a parent quickly understand what is available now, shop by child/category, discover coordinated outfits, and distinguish ready-to-ship merchandise from preorders.
+Little J’s is a Shopify children’s boutique selling children’s and women’s clothing, sibling sets, occasion collections, ready-to-ship items, preorders, activewear, swim, and accessories. It no longer sells smocked clothing — do not reintroduce that language into storefront copy. The storefront should help a parent quickly understand what is available now, shop by child/category, discover coordinated outfits, and distinguish ready-to-ship merchandise from preorders.
 
 The theme is intentionally lightweight. Prefer server-rendered Liquid, native HTML, component-scoped CSS, responsive Shopify images, and progressive enhancement. Core browsing and purchasing must work without custom JavaScript.
 
@@ -25,6 +25,7 @@ The theme is intentionally lightweight. Prefer server-rendered Liquid, native HT
 - Product photography carries most of the visual energy.
 - Copy is concise, specific, and helpful to busy parents.
 - No gradients, glassmorphism, heavy shadows, parallax, autoplay video, or decorative animation loops.
+- Motion is limited to one pattern: a single fade-and-lift as content scrolls into view (`data-reveal`, 700ms, 1rem offset, shared `--motion-ease`), plus short hover/focus transitions. It never repeats, never moves the hero, and never runs for visitors who prefer reduced motion.
 
 ## Color palette
 
