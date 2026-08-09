@@ -127,6 +127,7 @@
         "shipping"
       ],
       "settings": {
+        "image": "shopify://shop_images/pexels-tima-miroshnichenko-6169007.jpg",
         "eyebrow": "Getting your order",
         "heading": "Pick Up Nearby or Ship to Your Door",
         "text": "<p>However you shop with us, your order is wrapped by hand and on its way quickly.</p>",
