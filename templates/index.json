@@ -12,6 +12,7 @@
     "hero": {
       "type": "editorial-hero",
       "settings": {
+        "image": "shopify://shop_images/backgroudImage.jpg",
         "eyebrow": "Children’s & women’s boutique clothing",
         "heading": "Dressed for Childhood.",
         "text": "Thoughtful pieces for everyday play, portraits, and the moments in between.",
@@ -28,15 +29,10 @@
       "blocks": {
         "girls": {
           "type": "link",
-          "settings": { "label": "Belles", "link": "/collections/ready-to-ship-girls" }
-        },
-        "boys": {
-          "type": "link",
-          "settings": { "label": "Beaus", "link": "/collections/ready-to-ship-boys" }
-        },
-        "activewear": {
-          "type": "link",
-          "settings": { "label": "Activewear", "link": "/collections/activewear" }
+          "settings": {
+            "label": "Belles",
+            "link": "/collections/ready-to-ship-girls"
+          }
         },
         "boys": {
           "type": "link",
@@ -45,9 +41,12 @@
             "link": "shopify://collections/ready-to-ship-boys"
           }
         },
-        "baby": {
+        "activewear": {
           "type": "link",
-          "settings": { "label": "Seasonal", "link": "/pages/shop-by-occasion" }
+          "settings": {
+            "label": "Activewear",
+            "link": "/collections/activewear"
+          }
         },
         "accessories": {
           "type": "link",
@@ -59,11 +58,8 @@
       },
       "block_order": [
         "girls",
-        "seasonal",
         "boys",
         "activewear",
-        "swim",
-        "seasonal",
         "accessories"
       ],
       "settings": {
@@ -101,7 +97,9 @@
       "settings": {
         "eyebrow": "Made to coordinate",
         "heading": "Sibling Sets Made Simple",
-        "text": "<p>Matching moments, without the guesswork. Shop coordinated colors and prints for brothers and sisters.</p>"
+        "text": "<p>Matching moments, without the guesswork. Shop coordinated colors and prints for brothers and sisters.</p>",
+        "link_label": "Shop matching sets",
+        "link": ""
       }
     },
     "shipping": {
@@ -122,7 +120,10 @@
           }
         }
       },
-      "block_order": ["pickup", "shipping"],
+      "block_order": [
+        "pickup",
+        "shipping"
+      ],
       "settings": {
         "eyebrow": "Getting your order",
         "heading": "Pick Up Nearby or Ship to Your Door",
@@ -146,7 +147,12 @@
             "text": "Secure checkout"
           }
         },
-        "packed": { "type": "item", "settings": { "text": "Packed with care" } }
+        "packed": {
+          "type": "item",
+          "settings": {
+            "text": "Packed with care"
+          }
+        }
       },
       "block_order": [
         "satisfaction",
