@@ -4,7 +4,7 @@
     <h1>{{ 'collections.title' | t }}</h1>
   </header>
 
-  <div class="collections-grid">
+  <div class="collections-grid" data-reveal>
     {% for collection in collections %}
       <a class="collection-card" href="{{ collection.url }}">
         <div class="collection-card__media">

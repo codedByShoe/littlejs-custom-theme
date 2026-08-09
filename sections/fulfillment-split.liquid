@@ -1,11 +1,11 @@
-<section class="fulfillment-split full-width">
-  <div class="fulfillment-split__panel fulfillment-split__panel--blue">
+<section class="fulfillment-split full-width" data-reveal-stagger>
+  <div class="fulfillment-split__panel fulfillment-split__panel--blue" data-reveal>
     <p class="eyebrow">{{ section.settings.first_eyebrow | escape }}</p>
     <h2>{{ section.settings.first_heading | escape }}</h2>
     <p>{{ section.settings.first_text | escape }}</p>
     <a class="button" href="{{ section.settings.first_link }}">{{ section.settings.first_label | escape }}</a>
   </div>
-  <div class="fulfillment-split__panel fulfillment-split__panel--cream">
+  <div class="fulfillment-split__panel fulfillment-split__panel--cream" data-reveal>
     <p class="eyebrow">{{ section.settings.second_eyebrow | escape }}</p>
     <h2>{{ section.settings.second_heading | escape }}</h2>
     <p>{{ section.settings.second_text | escape }}</p>
@@ -65,7 +65,7 @@
 {
   "name": "Fulfillment split",
   "settings": [
-    { "type": "text", "id": "first_eyebrow", "label": "First eyebrow", "default": "Fast fulfillment" },
+    { "type": "text", "id": "first_eyebrow", "label": "First eyebrow", "default": "Available now" },
     { "type": "text", "id": "first_heading", "label": "First heading", "default": "Ready to Ship" },
     { "type": "textarea", "id": "first_text", "label": "First text", "default": "In-stock favorites are packed with care and sent from our boutique within 2–3 business days." },
     { "type": "text", "id": "first_label", "label": "First button", "default": "Shop available now" },

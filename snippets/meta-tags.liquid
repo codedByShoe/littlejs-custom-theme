@@ -11,9 +11,16 @@
 <meta name="theme-color" content="{{ settings.background_color }}">
 
 {%- liquid
-  assign meta_title = page_title | default: shop.name
+  comment
+    The Shopify store name is still the previous business name and cannot be
+    changed while the store carries a credit balance, so brand_name is the
+    source of truth for anything customer facing. See CLAUDE.md.
+  endcomment
+  assign brand_name = settings.brand_name | default: shop.name
+
+  assign meta_title = page_title | default: brand_name
   assign meta_url = canonical_url | default: request.origin
-  assign meta_description = page_description | default: shop.description | default: shop.name
+  assign meta_description = page_description | default: shop.description | default: brand_name
   assign meta_type = 'website'
   assign social_image = page_image | default: settings.social_sharing_image
 
@@ -43,11 +50,11 @@
   endcapture
 -%}
 
-<title>Little J's Children's Boutique | {{ page_title }}</title>
+<title>{{ brand_name | escape }} | {{ page_title }}</title>
 <link rel="canonical" href="{{ meta_url }}">
 <meta name="description" content="{{ meta_description | strip_html | strip_newlines | escape_once }}">
 
-<meta property="og:site_name" content="{{ shop.name | escape_once }}">
+<meta property="og:site_name" content="{{ brand_name | escape_once }}">
 <meta property="og:url" content="{{ meta_url }}">
 <meta property="og:title" content="{{ meta_title | escape_once }}">
 <meta property="og:type" content="{{ meta_type }}">
@@ -108,7 +115,7 @@
         {
           "@type": "Organization",
           "@id": {{ shop.url | append: '#organization' | json }},
-          "name": {{ shop.name | json }},
+          "name": {{ brand_name | json }},
           "url": {{ shop.url | json }}{% if organization_logo %},
           "logo": {
             "@type": "ImageObject",
@@ -121,7 +128,7 @@
           "@type": "WebSite",
           "@id": {{ shop.url | append: '#website' | json }},
           "url": {{ shop.url | json }},
-          "name": {{ shop.name | json }},
+          "name": {{ brand_name | json }},
           "publisher": {
             "@id": {{ shop.url | append: '#organization' | json }}
           },

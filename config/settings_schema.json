@@ -8,6 +8,18 @@
     "theme_support_url": "https://support.shopify.com/"
   },
   {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "text",
+        "id": "brand_name",
+        "label": "Business name",
+        "default": "Little J's Children's Boutique",
+        "info": "Used for the browser tab title, social sharing, search engine data, and the footer copyright. Set this instead of relying on the Shopify store name."
+      }
+    ]
+  },
+  {
     "name": "Typography",
     "settings": [
       {

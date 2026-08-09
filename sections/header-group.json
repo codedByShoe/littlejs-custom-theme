@@ -5,7 +5,7 @@
     "announcement": {
       "type": "announcement-bar",
       "settings": {
-        "text": "Free shipping on orders over $100 — Shop ready to ship",
+        "text": "Preorders now open — Reserve your favorites",
         "background": "#292421",
         "text_color": "#FBF8F3"
       }

@@ -23,6 +23,9 @@
     {% # Social, title, etc. %}
     {% render 'meta-tags' %}
 
+    {% # Must run before first paint — see the snippet for why %}
+    {% render 'scroll-reveal' %}
+
     {{ content_for_header }}
   </head>
 

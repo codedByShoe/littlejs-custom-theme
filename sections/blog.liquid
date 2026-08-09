@@ -5,9 +5,9 @@
   </header>
 
   {% paginate blog.articles by 9 %}
-    <div class="blog-page__grid">
+    <div class="blog-page__grid" data-reveal-stagger>
       {% for article in blog.articles %}
-        <article class="article-card">
+        <article class="article-card" data-reveal>
           {% if article.image %}
             <a class="article-card__media" href="{{ article.url }}">
               {{ article.image | image_url: width: 1200 | image_tag:

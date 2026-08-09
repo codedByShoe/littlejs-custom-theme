@@ -1,3 +1,9 @@
+{%- liquid
+  # shop.name is the previous business name and cannot be changed yet. See CLAUDE.md.
+  assign brand_name = settings.brand_name | default: shop.name
+  assign header_wordmark = section.settings.wordmark | default: brand_name
+-%}
+
 <header class="site-header">
   <div class="site-header__inner">
     <input
@@ -24,7 +30,7 @@
 
       <aside class="site-header__drawer-panel" aria-label="Mobile navigation">
         <div class="site-header__drawer-heading">
-          <a href="{{ routes.root_url }}">{{ section.settings.wordmark | default: shop.name | escape }}</a>
+          <a href="{{ routes.root_url }}">{{ header_wordmark | escape }}</a>
           <label for="MobileMenuToggle-{{ section.id }}" aria-label="Close navigation">
             <span></span><span></span>
           </label>
@@ -96,10 +102,10 @@
             widths: '120, 180, 240, 360',
             width: section.settings.logo_width,
             loading: 'eager',
-            alt: shop.name
+            alt: brand_name
         }}
       {% else %}
-        {{ section.settings.wordmark | default: shop.name | escape }}
+        {{ header_wordmark | escape }}
       {% endif %}
     </a>
 

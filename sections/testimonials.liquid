@@ -1,11 +1,11 @@
 <section class="testimonials section-spacing">
-  <div class="testimonials__heading">
+  <div class="testimonials__heading" data-reveal>
     <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
     <h2>{{ section.settings.heading | escape }}</h2>
   </div>
-  <div class="testimonials__grid">
+  <div class="testimonials__grid" data-reveal-stagger>
     {% for block in section.blocks %}
-      <figure {{ block.shopify_attributes }}>
+      <figure data-reveal {{ block.shopify_attributes }}>
         <div class="testimonials__stars" aria-label="5 out of 5 stars">★★★★★</div>
         <blockquote>“{{ block.settings.quote | escape }}”</blockquote>
         <figcaption>— {{ block.settings.name | escape }}</figcaption>

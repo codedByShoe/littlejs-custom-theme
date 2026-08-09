@@ -1,0 +1,67 @@
+{% doc %}
+  Enables the subtle scroll-reveal animation used across the storefront.
+
+  This runs in the document head on purpose. It sets the `data-reveal-ready`
+  flag on <html> before first paint, so elements marked `data-reveal` are
+  hidden from the very first frame rather than flashing visible and then
+  hiding. The flag is only set when IntersectionObserver is available and the
+  visitor has not asked for reduced motion — without it the matching CSS never
+  applies and every element renders normally, so the page is fully usable with
+  no JavaScript at all.
+
+  Mark up:
+  - `data-reveal` on an element fades and lifts it into view once.
+  - `data-reveal-stagger` on a parent staggers its `data-reveal` children.
+
+  @example
+  {% render 'scroll-reveal' %}
+{% enddoc %}
+
+<script>
+  (function () {
+    if (
+      !('IntersectionObserver' in window) ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      return;
+    }
+
+    document.documentElement.setAttribute('data-reveal-ready', '');
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var targets = document.querySelectorAll('[data-reveal]');
+
+      if (!targets.length) return;
+
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+
+            var element = entry.target;
+            var parent = element.parentElement;
+
+            if (parent && parent.hasAttribute('data-reveal-stagger')) {
+              var siblings = Array.prototype.filter.call(parent.children, function (child) {
+                return child.hasAttribute('data-reveal');
+              });
+              var index = siblings.indexOf(element);
+
+              if (index > 0) {
+                element.style.transitionDelay = Math.min(index * 80, 400) + 'ms';
+              }
+            }
+
+            element.classList.add('is-revealed');
+            observer.unobserve(element);
+          });
+        },
+        { threshold: 0, rootMargin: '0px 0px -8% 0px' }
+      );
+
+      targets.forEach(function (target) {
+        observer.observe(target);
+      });
+    });
+  })();
+</script>

@@ -1,12 +1,14 @@
 <section class="sibling-feature section-spacing">
-  <div class="sibling-feature__copy">
+  <div class="sibling-feature__copy" data-reveal>
     {% if section.settings.eyebrow != blank %}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{% endif %}
     <h2>{{ section.settings.heading | escape }}</h2>
     <div class="rte">{{ section.settings.text }}</div>
-    <a class="button" href="{{ section.settings.link }}">{{ section.settings.link_label | escape }}</a>
+    {% if section.settings.link != blank and section.settings.link_label != blank %}
+      <a class="button" href="{{ section.settings.link }}">{{ section.settings.link_label | escape }}</a>
+    {% endif %}
   </div>
 
-  <div class="sibling-feature__media">
+  <div class="sibling-feature__media" data-reveal>
     <div>
       {% if section.settings.first_image %}
         {{ section.settings.first_image | image_url: width: 1100 | image_tag:
@@ -93,7 +95,7 @@
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Made to coordinate" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Sibling Sets Made Simple" },
-    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Matching moments, without the guesswork. Shop coordinated colors and smocking for brothers and sisters.</p>" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Matching moments, without the guesswork. Shop coordinated colors and prints for brothers and sisters.</p>" },
     { "type": "text", "id": "link_label", "label": "Button label", "default": "Shop matching sets" },
     { "type": "url", "id": "link", "label": "Link" },
     { "type": "image_picker", "id": "first_image", "label": "First image" },
