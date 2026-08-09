@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -29,11 +38,14 @@
           "type": "link",
           "settings": { "label": "Activewear", "link": "/collections/activewear" }
         },
-        "swim": {
+        "boys": {
           "type": "link",
-          "settings": { "label": "Swim", "link": "/collections/swim" }
+          "settings": {
+            "label": "Boys",
+            "link": "shopify://collections/ready-to-ship-boys"
+          }
         },
-        "seasonal": {
+        "baby": {
           "type": "link",
           "settings": { "label": "Seasonal", "link": "/pages/shop-by-occasion" }
         },
@@ -47,13 +59,16 @@
       },
       "block_order": [
         "girls",
+        "seasonal",
         "boys",
         "activewear",
         "swim",
         "seasonal",
         "accessories"
       ],
-      "settings": { "accessibility_label": "Shop by category" }
+      "settings": {
+        "accessibility_label": "Shop by category"
+      }
     },
     "featured": {
       "type": "featured-products",
@@ -121,15 +136,23 @@
       "blocks": {
         "satisfaction": {
           "type": "item",
-          "settings": { "text": "Satisfaction guaranteed" }
+          "settings": {
+            "text": "Satisfaction guaranteed"
+          }
         },
         "checkout": {
           "type": "item",
-          "settings": { "text": "Secure checkout" }
+          "settings": {
+            "text": "Secure checkout"
+          }
         },
         "packed": { "type": "item", "settings": { "text": "Packed with care" } }
       },
-      "block_order": ["satisfaction", "checkout", "packed"],
+      "block_order": [
+        "satisfaction",
+        "checkout",
+        "packed"
+      ],
       "settings": {}
     },
     "reviews": {
@@ -138,26 +161,30 @@
         "review_1": {
           "type": "testimonial",
           "settings": {
-            "name": "MaKenzie Mathis",
-            "quote": "I’d give 100 stars if I could! The cutest outfits, the best quality and so affordable!"
+            "quote": "I’d give 100 stars if I could! The cutest outfits, the best quality and so affordable!",
+            "name": "MaKenzie Mathis"
           }
         },
         "review_2": {
           "type": "testimonial",
           "settings": {
-            "name": "Tiffany Long",
-            "quote": "We absolutely love Little J’s Smocks!! We have so many matching brother sister outfits from here!! Highly recommend them to everyone wanting sibling sets!!"
+            "quote": "We absolutely love Little J’s Smocks!! We have so many matching brother sister outfits from here!! Highly recommend them to everyone wanting sibling sets!!",
+            "name": "Tiffany Long"
           }
         },
         "review_3": {
           "type": "testimonial",
           "settings": {
-            "name": "Ashley Yawn",
-            "quote": "This is literally the best company! Everything is SO affordable and great quality. Definitely a 10/10!"
+            "quote": "This is literally the best company! Everything is SO affordable and great quality. Definitely a 10/10!",
+            "name": "Ashley Yawn"
           }
         }
       },
-      "block_order": ["review_1", "review_2", "review_3"],
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ],
       "settings": {
         "eyebrow": "Kind words",
         "heading": "Loved by Little J’s Families"
