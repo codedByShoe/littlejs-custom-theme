@@ -12,6 +12,7 @@
     "hero": {
       "type": "editorial-hero",
       "settings": {
+        "image": "shopify://shop_images/backgroudImage.jpg",
         "eyebrow": "Sweet styles for littles & mamas",
         "heading": "Making Childhood Cuter.",
         "text": "From everyday play to picture-perfect days, find styles made for all the sweetest moments.",
