@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -19,23 +28,24 @@
       "blocks": {
         "girls": {
           "type": "link",
-          "settings": { "label": "Belles", "link": "/collections/ready-to-ship-girls" }
+          "settings": {
+            "label": "Belles",
+            "link": "/collections/ready-to-ship-girls"
+          }
         },
         "boys": {
           "type": "link",
-          "settings": { "label": "Beaus", "link": "/collections/ready-to-ship-boys" }
+          "settings": {
+            "label": "Boys",
+            "link": "shopify://collections/ready-to-ship-boys"
+          }
         },
         "activewear": {
           "type": "link",
-          "settings": { "label": "Activewear", "link": "/collections/activewear" }
-        },
-        "swim": {
-          "type": "link",
-          "settings": { "label": "Swim", "link": "/collections/swim" }
-        },
-        "seasonal": {
-          "type": "link",
-          "settings": { "label": "Seasonal", "link": "/pages/shop-by-occasion" }
+          "settings": {
+            "label": "Activewear",
+            "link": "/collections/activewear"
+          }
         },
         "accessories": {
           "type": "link",
@@ -49,11 +59,11 @@
         "girls",
         "boys",
         "activewear",
-        "swim",
-        "seasonal",
         "accessories"
       ],
-      "settings": { "accessibility_label": "Shop by category" }
+      "settings": {
+        "accessibility_label": "Shop by category"
+      }
     },
     "featured": {
       "type": "featured-products",
@@ -86,34 +96,11 @@
       "settings": {
         "eyebrow": "Made to coordinate",
         "heading": "Sibling Sets Made Simple",
-        "text": "<p>Matching moments, without the guesswork. Shop coordinated colors and prints for brothers and sisters.</p>"
-      }
-    },
-    "shipping": {
-      "type": "shipping-feature",
-      "blocks": {
-        "pickup": {
-          "type": "option",
-          "settings": {
-            "title": "Local pickup",
-            "text": "Choose pickup at checkout and we will email you the moment your order is packed and ready."
-          }
-        },
-        "shipping": {
-          "type": "option",
-          "settings": {
-            "title": "Shipping available",
-            "text": "We ship nationwide. Shipping is calculated at checkout."
-          }
-        }
-      },
-      "block_order": ["pickup", "shipping"],
-      "settings": {
-        "eyebrow": "Getting your order",
-        "heading": "Pick Up Nearby or Ship to Your Door",
-        "text": "<p>However you shop with us, your order is wrapped by hand and on its way quickly.</p>",
-        "link_label": "Read our shipping policy",
-        "link": "/policies/shipping-policy"
+        "text": "<p>Matching moments, without the guesswork. Shop coordinated colors and prints for brothers and sisters.</p>",
+        "link_label": "Shop matching sets",
+        "link": "",
+        "first_image": "shopify://shop_images/688350254_10236212171616816_4579844400612072187_n.jpg",
+        "second_image": "shopify://shop_images/658853005_10235778082684864_8910059122160764077_n.jpg"
       }
     },
     "trust": {
@@ -121,15 +108,28 @@
       "blocks": {
         "satisfaction": {
           "type": "item",
-          "settings": { "text": "Satisfaction guaranteed" }
+          "settings": {
+            "text": "Satisfaction guaranteed"
+          }
         },
         "checkout": {
           "type": "item",
-          "settings": { "text": "Secure checkout" }
+          "settings": {
+            "text": "Secure checkout"
+          }
         },
-        "packed": { "type": "item", "settings": { "text": "Packed with care" } }
+        "packed": {
+          "type": "item",
+          "settings": {
+            "text": "Packed with care"
+          }
+        }
       },
-      "block_order": ["satisfaction", "checkout", "packed"],
+      "block_order": [
+        "satisfaction",
+        "checkout",
+        "packed"
+      ],
       "settings": {}
     },
     "reviews": {
@@ -138,26 +138,30 @@
         "review_1": {
           "type": "testimonial",
           "settings": {
-            "name": "MaKenzie Mathis",
-            "quote": "I’d give 100 stars if I could! The cutest outfits, the best quality and so affordable!"
+            "quote": "I’d give 100 stars if I could! The cutest outfits, the best quality and so affordable!",
+            "name": "MaKenzie Mathis"
           }
         },
         "review_2": {
           "type": "testimonial",
           "settings": {
-            "name": "Tiffany Long",
-            "quote": "We absolutely love Little J’s Smocks!! We have so many matching brother sister outfits from here!! Highly recommend them to everyone wanting sibling sets!!"
+            "quote": "We absolutely love Little J’s Smocks!! We have so many matching brother sister outfits from here!! Highly recommend them to everyone wanting sibling sets!!",
+            "name": "Tiffany Long"
           }
         },
         "review_3": {
           "type": "testimonial",
           "settings": {
-            "name": "Ashley Yawn",
-            "quote": "This is literally the best company! Everything is SO affordable and great quality. Definitely a 10/10!"
+            "quote": "This is literally the best company! Everything is SO affordable and great quality. Definitely a 10/10!",
+            "name": "Ashley Yawn"
           }
         }
       },
-      "block_order": ["review_1", "review_2", "review_3"],
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ],
       "settings": {
         "eyebrow": "Kind words",
         "heading": "Loved by Little J’s Families"
@@ -179,7 +183,6 @@
     "featured",
     "fulfillment",
     "siblings",
-    "shipping",
     "trust",
     "reviews",
     "newsletter"
