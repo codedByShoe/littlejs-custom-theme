@@ -13,9 +13,9 @@
       "type": "editorial-hero",
       "settings": {
         "image": "shopify://shop_images/backgroudImage.jpg",
-        "eyebrow": "Children’s & women’s boutique clothing",
-        "heading": "Dressed for Childhood.",
-        "text": "Thoughtful pieces for everyday play, portraits, and the moments in between.",
+        "eyebrow": "sweet styles for littles & mamas",
+        "heading": "Making Childhood Cuter.",
+        "text": "From everyday play to picture-perfect days, find styles made for all the sweetest moments.",
         "primary_eyebrow": "New in",
         "primary_label": "Shop New Arrivals",
         "primary_link": "/collections/new-arrivals",
@@ -104,37 +104,6 @@
         "second_image": "shopify://shop_images/658853005_10235778082684864_8910059122160764077_n.jpg"
       }
     },
-    "shipping": {
-      "type": "shipping-feature",
-      "blocks": {
-        "pickup": {
-          "type": "option",
-          "settings": {
-            "title": "Local pickup",
-            "text": "Choose pickup at checkout and we will email you the moment your order is packed and ready."
-          }
-        },
-        "shipping": {
-          "type": "option",
-          "settings": {
-            "title": "Shipping available",
-            "text": "We ship nationwide. Shipping is calculated at checkout."
-          }
-        }
-      },
-      "block_order": [
-        "pickup",
-        "shipping"
-      ],
-      "settings": {
-        "image": "shopify://shop_images/pexels-tima-miroshnichenko-6169007.jpg",
-        "eyebrow": "Getting your order",
-        "heading": "Pick Up Nearby or Ship to Your Door",
-        "text": "<p>However you shop with us, your order is wrapped by hand and on its way quickly.</p>",
-        "link_label": "Read our shipping policy",
-        "link": "/policies/shipping-policy"
-      }
-    },
     "trust": {
       "type": "trust-bar",
       "blocks": {
@@ -215,7 +184,6 @@
     "featured",
     "fulfillment",
     "siblings",
-    "shipping",
     "trust",
     "reviews",
     "newsletter"
