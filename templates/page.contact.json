@@ -26,7 +26,7 @@
         ".contact-section__notice {display: none;}"
       ],
       "settings": {
-        "form_type": "general",
+        "form_type": "wholesale",
         "eyebrow": "customer care",
         "heading": "Wholesale Inquiries",
         "text": "<p>Please fill out the form to apply for wholesale items. </p>",
