@@ -26,7 +26,7 @@
         ".contact-section__notice {display: none;}"
       ],
       "settings": {
-        "form_type": "general",
+        "form_type": "wholesale",
         "eyebrow": "Contact US",
         "heading": "We want to hear from you.",
         "text": "<p>Whether you have a question about an order, need help finding the perfect size, or just want to learn more about one of our products, we’re happy to help.</p><p>If you’re contacting us about an existing order, please include your order number so we can assist you more quickly.</p>",
