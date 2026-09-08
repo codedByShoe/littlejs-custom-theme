@@ -1,3 +1,10 @@
+{% liquid
+  assign contact_form_type = 'general'
+  if template.suffix == 'wholesale'
+    assign contact_form_type = 'wholesale'
+  endif
+%}
+
 <section class="contact-section contact-section--{{ section.settings.background }} section-spacing">
   <div class="contact-section__inner">
     <div class="contact-section__aside">
@@ -32,7 +39,7 @@
     <div class="contact-section__form">
       {% form 'contact', id: 'ContactForm' %}
         <input type="hidden" name="contact[Page]" value="{{ page.title | escape }}">
-        {% if section.settings.form_type == 'wholesale' %}
+        {% if contact_form_type == 'wholesale' %}
           <input type="hidden" name="contact[Inquiry type]" value="Wholesale">
         {% endif %}
 
@@ -49,7 +56,7 @@
             </div>
           {% endif %}
 
-          {% if section.settings.form_type == 'wholesale' %}
+          {% if contact_form_type == 'wholesale' %}
             <div class="contact-section__notice" role="note">
               <strong>Brick-and-mortar retailers only</strong>
               <p>{{ section.settings.wholesale_note | escape }}</p>
@@ -59,7 +66,7 @@
           <div class="contact-section__fields">
             <div class="contact-section__field">
               <label for="ContactName-{{ section.id }}">
-                {% if section.settings.form_type == 'wholesale' %}Full name{% else %}Name{% endif %}
+                {% if contact_form_type == 'wholesale' %}Full name{% else %}Name{% endif %}
               </label>
               <input
                 id="ContactName-{{ section.id }}"
@@ -89,7 +96,7 @@
               {% endif %}
             </div>
 
-            {% if section.settings.form_type == 'wholesale' %}
+            {% if contact_form_type == 'wholesale' %}
               <div class="contact-section__field">
                 <label for="ContactCompany-{{ section.id }}">Business name</label>
                 <input
@@ -199,7 +206,7 @@
 
             <div class="contact-section__field contact-section__field--full">
               <label for="ContactMessage-{{ section.id }}">
-                {% if section.settings.form_type == 'wholesale' %}Tell us about your business{% else %}Message{% endif %}
+                {% if contact_form_type == 'wholesale' %}Tell us about your business{% else %}Message{% endif %}
               </label>
               <textarea
                 id="ContactMessage-{{ section.id }}"
@@ -369,16 +376,6 @@
 {
   "name": "Contact form",
   "settings": [
-    {
-      "type": "select",
-      "id": "form_type",
-      "label": "Form type",
-      "options": [
-        { "value": "general", "label": "General contact" },
-        { "value": "wholesale", "label": "Wholesale inquiry" }
-      ],
-      "default": "general"
-    },
     {
       "type": "text",
       "id": "eyebrow",
