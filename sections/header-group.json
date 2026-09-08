@@ -15,12 +15,14 @@
       "type": "announcement-bar",
       "settings": {
         "text": "Preorders now open — Reserve your favorites",
+        "link": "",
         "background": "#292421",
         "text_color": "#fbf8f3"
       }
     },
     "header": {
       "type": "header",
+      "custom_css": [],
       "settings": {
         "logo": "shopify://shop_images/logo-transparent.png",
         "logo_width": 160,
