@@ -20,6 +20,7 @@
       {% paginate search.results by 20 %}
         <div class="search-results">
           {% for result in search.results %}
+{%- capture wlm_check -%}{%- render 'wlm-search' with result, wlm_is_render:'yes' -%}{%- endcapture -%}{%- if wlm_check == blank -%}{%- continue -%}{%- endif -%}
             {% if result.object_type == 'product' %}
               {% render 'product-card', product: result, show_badge: true, image_sizes: '(min-width: 990px) 25vw, 50vw' %}
             {% else %}

@@ -1,3 +1,4 @@
+{%- comment -%} injected-product-card-templates {%- endcomment -%}{%- capture wlm_check -%}{%- render 'wlm-product' with product, wlm_is_render:'yes' -%}{%- endcapture -%}{%- if wlm_check == blank -%}{%- assign wlmHideProduct = true -%}{%- endif -%}
 {% doc %}
   Renders a lightweight product card.
 

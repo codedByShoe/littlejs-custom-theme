@@ -1,0 +1,124 @@
+    {% assign hide_add_to_cart_flag_status = 0 %}
+    {% assign can_see_prices_status = 1 %}
+    {% assign allowed_add_to_cart_tags = "" | split: "," %}
+    {% assign allowed_countries = "" | split: "," %}
+    {% assign can_see_prices = false %}
+    {% assign hide_add_to_cart_flag = 0 %}
+    {% assign user_status = "not_logged_in" %}
+
+    {% assign current_country_code = "" %}
+    {% if customer.default_address.country_code %}
+        {% assign current_country_code = customer.default_address.country_code %}
+    {% elsif localization.country.iso_code %}
+        {% assign current_country_code = localization.country.iso_code %}
+    {% endif %}
+
+    {% if customer %}
+        {% assign user_status = "logged_in_no_tag" %}
+        {% assign allowed_tags = "" | split: "," %}
+        {% assign allowed_emails = "" | split: "," %}
+        {% assign current_customer_email = customer.email | downcase %}
+
+        {% assign has_price_restrictions = false %}
+        {% if allowed_tags.size > 0 and allowed_tags.first != "" %}
+            {% assign has_price_restrictions = true %}
+        {% endif %}
+        {% if allowed_emails.size > 0 and allowed_emails.first != "" %}
+            {% assign has_price_restrictions = true %}
+        {% endif %}
+        {% if allowed_countries.size > 0 and allowed_countries.first != "" %}
+            {% assign has_price_restrictions = true %}
+        {% endif %}
+
+        {% if has_price_restrictions == false %}
+            {% assign can_see_prices = true %}
+            {% assign user_status = "has_access" %}
+        {% elsif allowed_emails contains current_customer_email %}
+            {% assign can_see_prices = true %}
+            {% assign user_status = "has_access" %}
+        {% else %}
+            {% if allowed_tags.size > 0 and allowed_tags.first != "" %}
+                {% for tag in allowed_tags %}
+                    {% if customer.tags contains tag %}
+                        {% assign can_see_prices = true %}
+                        {% assign user_status = "has_access" %}
+                        {% break %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+            {% if can_see_prices == false and allowed_countries.size > 0 and allowed_countries.first != "" %}
+                {% if allowed_countries contains current_country_code %}
+                    {% assign can_see_prices = true %}
+                    {% assign user_status = "has_access" %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+
+        {% if allowed_add_to_cart_tags.size > 0 and allowed_add_to_cart_tags.first != "" %}
+            {% for tag in allowed_add_to_cart_tags %}
+                {% if customer.tags contains tag %}
+                    {% assign hide_add_to_cart_flag = 1 %}
+                    {% break %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% if allowed_emails contains current_customer_email %}
+               {% assign hide_add_to_cart_flag = 1 %}
+        {% endif %}
+
+        {% if allowed_countries.size > 0 and allowed_countries.first != "" and allowed_countries contains current_country_code %}
+            {% assign hide_add_to_cart_flag = 1 %}
+        {% endif %}
+    {% else %}
+        {% if allowed_countries.size > 0 and allowed_countries.first != "" %}
+            {% if allowed_countries contains current_country_code %}
+                {% assign can_see_prices = true %}
+                {% assign hide_add_to_cart_flag = 1 %}
+                {% assign user_status = "has_access" %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+    {% if can_see_prices_status == 0 %}
+         {% assign can_see_prices = true %}
+         {% assign user_status = "has_access" %}
+    {% endif %}
+
+    {% if hide_add_to_cart_flag_status == 0 %}
+         {% assign hide_add_to_cart_flag = 1 %}
+    {% endif %}
+
+    {% if can_see_prices == false or hide_add_to_cart_flag == 0 %}
+        <link rel="stylesheet" id="wlmhideprice" href="/apps/wlm/css/wlmhideprice.css?v=1.1.0">
+        <style>
+            .wlm-login-link {}
+            {% if hide_add_to_cart_flag == 0 %}
+                .tt-btn-addtocart, .addtocart-item-js, .btn-addtocart, .addtocart-js, .product-form__add-button, #addToCart, .add_to_cart, .product-form__cart-submit, .add-to-cart, .product-submit, .add, .product-form--atc-button, form[action$="/cart/add"] [type="submit"], .shopify-payment-button, .wof-add-to-cart-button, .wof-sold-out-button, .main-product__block-buy_buttons, .payment-buttons, .armament-quantity-selector, .product-form-container, .quantity, .quantity__label {
+                    display: none !important;
+                }
+            {% endif %}
+        </style>
+        <script>
+        var wlmHidePrice = {};
+        {% if can_see_prices == false %}
+            {% if user_status == "not_logged_in" %}
+                wlmHidePrice.textPrice = "Login to view price";
+                wlmHidePrice.redirectLink = "/account/login";
+            {% elsif user_status == "logged_in_no_tag" %}
+                wlmHidePrice.textPrice = "Contact us to see the price";
+                wlmHidePrice.redirectLink = "/pages/contact";
+            {% endif %}
+            wlmHidePrice.status = 1;
+        {% else %}
+            wlmHidePrice.status = 0;
+        {% endif %}
+
+        {% if hide_add_to_cart_flag == 0 %}
+            wlmHidePrice.hideAddToCart = 1;
+        {% else %}
+            wlmHidePrice.hideAddToCart = 0;
+        {% endif %}
+        </script>
+        <script type="text/javascript" src="/apps/wlm/js/wlmhideprice.js?v=1.3.6"></script>
+    {% endif %}

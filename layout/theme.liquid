@@ -26,7 +26,8 @@
     {% # Must run before first paint — see the snippet for why %}
     {% render 'scroll-reveal' %}
 
-    {{ content_for_header }}
+    {% unless request.design_mode %}{% include 'wlm-head' %}{% endunless %}
+{{ content_for_header }}
   </head>
 
   <body>
@@ -34,7 +35,7 @@
     {% sections 'header-group' %}
 
     <main id="MainContent" tabindex="-1">
-      {{ content_for_layout }}
+      {% comment %}{{ content_for_layout }}{% endcomment %}{% include 'wlm-body' %}
     </main>
 
     {% sections 'footer-group' %}
