@@ -1,4 +1,7 @@
-{% assign current_variant = product.selected_or_first_available_variant %}
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign shipping_estimate = product.metafields.custom.shipping_estimate.value
+%}
 
 <article class="product section-spacing">
   <div class="product__media">
@@ -45,6 +48,10 @@
       {% endif %}
     </p>
 
+    {% if shipping_estimate != blank %}
+      <p>{{ shipping_estimate | escape }}</p>
+    {% endif %}
+
     {% form 'product', product, class: 'product__form' %}
       {% unless product.has_only_default_variant %}
         <label for="Variant-{{ section.id }}">Choose an option</label>
@@ -69,10 +76,6 @@
       <button class="button product__add" type="submit" {% unless current_variant.available %}disabled{% endunless %}>
         {% if current_variant.available %}Add to bag{% else %}Sold out{% endif %}
       </button>
-
-      {% if section.settings.show_dynamic_checkout and current_variant.available %}
-        {{ form | payment_button }}
-      {% endif %}
     {% endform %}
 
     <div class="product__notes">
@@ -216,7 +219,6 @@
 {
   "name": "Product",
   "settings": [
-    { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Show dynamic checkout", "default": true },
     { "type": "textarea", "id": "preorder_text", "label": "Preorder message", "default": "Estimated ship dates are listed in the product details. In-stock items ordered with preorders may ship together." },
     { "type": "textarea", "id": "shipping_text", "label": "Shipping message", "default": "Ready-to-ship orders are typically packed within 2–3 business days. See our shipping and return policies for details." }
   ],

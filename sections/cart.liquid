@@ -58,11 +58,9 @@
           <label for="CartNote">Order note</label>
           <textarea id="CartNote" name="note">{{ cart.note }}</textarea>
           <button class="button" type="submit" name="checkout">{{ 'cart.checkout' | t }}</button>
-          {% if additional_checkout_buttons %}
-            <div class="cart-summary__additional">{{ content_for_additional_checkout_buttons }}</div>
-          {% endif %}
         </aside>
       </div>
+      {% render 'checkout-shipping-review', id: 'CartPageShippingReview' %}
     </form>
   {% endif %}
 </section>
@@ -181,10 +179,6 @@
   .cart-summary label {
     font-size: 0.8rem;
     font-weight: 600;
-  }
-
-  .cart-summary__additional {
-    margin-top: 0.5rem;
   }
 
   .cart-page__empty {

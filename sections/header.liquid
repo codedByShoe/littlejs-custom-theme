@@ -300,6 +300,7 @@
           <button class="button" type="submit" name="checkout">Checkout</button>
           <a href="{{ routes.cart_url }}">View full cart</a>
         </div>
+        {% render 'checkout-shipping-review', id: 'CartDrawerShippingReview' %}
       </form>
     {% endif %}
   </aside>

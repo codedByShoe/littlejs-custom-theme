@@ -1,0 +1,133 @@
+{% doc %}
+  Renders the shipping acknowledgment inside a cart form.
+
+  @param {string} id - Unique dialog ID for this cart form.
+{% enddoc %}
+
+{% if cart.requires_shipping %}
+  <dialog
+    id="{{ id }}"
+    class="checkout-shipping-review"
+    aria-labelledby="{{ id }}-title"
+    aria-describedby="{{ id }}-description"
+    scroll-lock
+  >
+    <h2 id="{{ id }}-title">Review your shipping estimates</h2>
+    <p id="{{ id }}-description">
+      Please review the timing for your items below. Preorder dates are estimates and may change.
+    </p>
+
+    <ul class="checkout-shipping-review__items" role="list">
+      {% for item in cart.items %}
+        {% if item.requires_shipping %}
+          {% assign shipping_estimate = item.product.metafields.custom.shipping_estimate.value %}
+          <li data-shipping-review-line="{{ forloop.index0 }}">
+            <a href="{{ item.url | escape }}">{{ item.title | escape }}</a>
+            {% if shipping_estimate != blank %}
+              <span>{{ shipping_estimate | escape }}</span>
+            {% endif %}
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+    <p>For items without an estimate here, check the linked product details.</p>
+
+    <div class="checkout-shipping-review__actions">
+      <button class="button button--secondary" type="button" data-shipping-review-back autofocus>Back to bag</button>
+      <button class="button" type="submit" name="checkout" data-shipping-review-confirm>
+        I understand, continue to checkout
+      </button>
+    </div>
+  </dialog>
+{% endif %}
+
+{% stylesheet %}
+  .checkout-shipping-review {
+    inset: 0;
+    width: min(36rem, calc(100% - 2rem));
+    max-height: calc(100dvh - 2rem);
+    margin: auto;
+    padding: clamp(1.25rem, 5vw, 2rem);
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--style-border-radius-media);
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+
+  .checkout-shipping-review::backdrop {
+    background: rgb(0 0 0 / 55%);
+  }
+
+  .checkout-shipping-review h2 {
+    margin-bottom: 0.5rem;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+
+  .checkout-shipping-review p {
+    color: var(--color-muted);
+  }
+
+  .checkout-shipping-review__items {
+    margin-block: 1rem;
+    padding: 0;
+    list-style: none;
+    overflow-wrap: anywhere;
+  }
+
+  .checkout-shipping-review__items li {
+    padding-block: 0.65rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .checkout-shipping-review__items span {
+    display: block;
+    color: var(--color-muted);
+  }
+
+  .checkout-shipping-review__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+
+  .checkout-shipping-review__actions .button {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  document.addEventListener('submit', (event) => {
+    const { target: form, submitter } = event;
+    if (event.defaultPrevented || submitter?.name !== 'checkout') return;
+
+    const dialog = form.querySelector('.checkout-shipping-review');
+    if (!dialog?.showModal) return;
+
+    if (dialog.open && dialog.contains(submitter) && submitter.hasAttribute('data-shipping-review-confirm')) {
+      dialog.close();
+      return;
+    }
+
+    const quantities = form.querySelectorAll('input[name="updates[]"]');
+    const lines = dialog.querySelectorAll('[data-shipping-review-line]');
+    let hasShippableItems = false;
+    for (const line of lines) {
+      const quantity = quantities[line.dataset.shippingReviewLine];
+      line.hidden = quantity?.value === '0' || quantity?.valueAsNumber === 0;
+      if (!line.hidden) hasShippableItems = true;
+    }
+
+    if (!hasShippableItems) return;
+
+    event.preventDefault();
+    if (!dialog.open) dialog.showModal();
+  });
+
+  document.addEventListener('click', (event) => {
+    const back = event.target.closest('[data-shipping-review-back]');
+    if (back) back.closest('dialog').close();
+  });
+{% endjavascript %}
